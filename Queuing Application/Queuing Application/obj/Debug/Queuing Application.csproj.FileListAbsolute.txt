@@ -1,0 +1,9 @@
+c:\users\george albert\documents\visual studio 2015\Projects\Queuing Application\Queuing Application\bin\Debug\Queuing Application.exe.config
+c:\users\george albert\documents\visual studio 2015\Projects\Queuing Application\Queuing Application\bin\Debug\Queuing Application.exe
+c:\users\george albert\documents\visual studio 2015\Projects\Queuing Application\Queuing Application\bin\Debug\Queuing Application.pdb
+c:\users\george albert\documents\visual studio 2015\Projects\Queuing Application\Queuing Application\obj\Debug\Queuing Application.csprojResolveAssemblyReference.cache
+c:\users\george albert\documents\visual studio 2015\Projects\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Form1.resources
+c:\users\george albert\documents\visual studio 2015\Projects\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Properties.Resources.resources
+c:\users\george albert\documents\visual studio 2015\Projects\Queuing Application\Queuing Application\obj\Debug\Queuing Application.csproj.GenerateResource.Cache
+c:\users\george albert\documents\visual studio 2015\Projects\Queuing Application\Queuing Application\obj\Debug\Queuing Application.exe
+c:\users\george albert\documents\visual studio 2015\Projects\Queuing Application\Queuing Application\obj\Debug\Queuing Application.pdb
