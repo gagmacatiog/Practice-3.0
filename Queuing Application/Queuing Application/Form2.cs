@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace Queuing_Application
 {
+    
     public partial class Form2 : Form
     {
         public Form2()

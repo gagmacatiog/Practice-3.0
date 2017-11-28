@@ -70,6 +70,27 @@
             this.label14 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.numberPanel2 = new System.Windows.Forms.Panel();
+            this.label26 = new System.Windows.Forms.Label();
+            this.num2down2 = new System.Windows.Forms.Label();
+            this.num2down1 = new System.Windows.Forms.Label();
+            this.num2RES = new System.Windows.Forms.Label();
+            this.num2Counter = new System.Windows.Forms.Label();
+            this.num2Queue = new System.Windows.Forms.Label();
+            this.num2ID = new System.Windows.Forms.Label();
+            this.num2PBox = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -78,8 +99,12 @@
             this.studentPanel.SuspendLayout();
             this.guestPanel.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.numberPanel.SuspendLayout();
+            this.numberPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num2PBox)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -141,7 +166,7 @@
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(98, 104);
+            this.pictureBox1.Size = new System.Drawing.Size(116, 104);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -323,6 +348,13 @@
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.label19);
+            this.panel7.Controls.Add(this.label20);
+            this.panel7.Controls.Add(this.label21);
+            this.panel7.Controls.Add(this.label22);
+            this.panel7.Controls.Add(this.label23);
+            this.panel7.Controls.Add(this.label24);
+            this.panel7.Controls.Add(this.label25);
             this.panel7.Controls.Add(this.label12);
             this.panel7.Controls.Add(this.label11);
             this.panel7.Controls.Add(this.label10);
@@ -341,9 +373,9 @@
             this.label12.BackColor = System.Drawing.Color.NavajoWhite;
             this.label12.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(43, 14);
+            this.label12.Location = new System.Drawing.Point(86, 23);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(180, 50);
+            this.label12.Size = new System.Drawing.Size(141, 50);
             this.label12.TabIndex = 6;
             this.label12.Text = "2013-99665";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -353,9 +385,9 @@
             this.label11.BackColor = System.Drawing.Color.MistyRose;
             this.label11.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(43, 70);
+            this.label11.Location = new System.Drawing.Point(86, 79);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(180, 50);
+            this.label11.Size = new System.Drawing.Size(141, 50);
             this.label11.TabIndex = 5;
             this.label11.Text = "2013-99655";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -365,9 +397,9 @@
             this.label10.BackColor = System.Drawing.Color.NavajoWhite;
             this.label10.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(43, 126);
+            this.label10.Location = new System.Drawing.Point(86, 135);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(180, 50);
+            this.label10.Size = new System.Drawing.Size(141, 50);
             this.label10.TabIndex = 4;
             this.label10.Text = "2013-99665";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -377,9 +409,9 @@
             this.label9.BackColor = System.Drawing.Color.MistyRose;
             this.label9.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(43, 182);
+            this.label9.Location = new System.Drawing.Point(86, 191);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(180, 50);
+            this.label9.Size = new System.Drawing.Size(141, 50);
             this.label9.TabIndex = 3;
             this.label9.Text = "2013-99665";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -389,9 +421,9 @@
             this.label8.BackColor = System.Drawing.Color.NavajoWhite;
             this.label8.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(43, 238);
+            this.label8.Location = new System.Drawing.Point(86, 247);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(180, 50);
+            this.label8.Size = new System.Drawing.Size(141, 50);
             this.label8.TabIndex = 2;
             this.label8.Text = "2013-99665";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -401,9 +433,9 @@
             this.label7.BackColor = System.Drawing.Color.MistyRose;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(43, 294);
+            this.label7.Location = new System.Drawing.Point(86, 303);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(180, 50);
+            this.label7.Size = new System.Drawing.Size(141, 50);
             this.label7.TabIndex = 1;
             this.label7.Text = "2013-99665";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -413,18 +445,22 @@
             this.label6.BackColor = System.Drawing.Color.NavajoWhite;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(43, 350);
+            this.label6.Location = new System.Drawing.Point(86, 359);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(180, 50);
+            this.label6.Size = new System.Drawing.Size(141, 50);
             this.label6.TabIndex = 0;
             this.label6.Text = "2013-99665";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel8
             // 
-            this.panel8.Location = new System.Drawing.Point(122, 77);
+            this.panel8.Controls.Add(this.panel2);
+            this.panel8.Controls.Add(this.panel5);
+            this.panel8.Controls.Add(this.panel9);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel8.Location = new System.Drawing.Point(116, 80);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(196, 448);
+            this.panel8.Size = new System.Drawing.Size(207, 445);
             this.panel8.TabIndex = 7;
             // 
             // label1
@@ -473,6 +509,7 @@
             // 
             // numberPanel
             // 
+            this.numberPanel.Controls.Add(this.numberPanel2);
             this.numberPanel.Controls.Add(this.label17);
             this.numberPanel.Controls.Add(this.label16);
             this.numberPanel.Controls.Add(this.label15);
@@ -542,19 +579,253 @@
             this.label18.Size = new System.Drawing.Size(2, 68);
             this.label18.TabIndex = 2;
             // 
+            // label19
+            // 
+            this.label19.BackColor = System.Drawing.Color.NavajoWhite;
+            this.label19.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.ForeColor = System.Drawing.Color.Black;
+            this.label19.Location = new System.Drawing.Point(17, 23);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(66, 50);
+            this.label19.TabIndex = 13;
+            this.label19.Text = "24";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label20
+            // 
+            this.label20.BackColor = System.Drawing.Color.MistyRose;
+            this.label20.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.Color.Black;
+            this.label20.Location = new System.Drawing.Point(17, 79);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(66, 50);
+            this.label20.TabIndex = 12;
+            this.label20.Text = "25";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label21
+            // 
+            this.label21.BackColor = System.Drawing.Color.NavajoWhite;
+            this.label21.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.Black;
+            this.label21.Location = new System.Drawing.Point(17, 135);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(66, 50);
+            this.label21.TabIndex = 11;
+            this.label21.Text = "26";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label22
+            // 
+            this.label22.BackColor = System.Drawing.Color.MistyRose;
+            this.label22.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.ForeColor = System.Drawing.Color.Black;
+            this.label22.Location = new System.Drawing.Point(17, 191);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(66, 50);
+            this.label22.TabIndex = 10;
+            this.label22.Text = "27";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label23
+            // 
+            this.label23.BackColor = System.Drawing.Color.NavajoWhite;
+            this.label23.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.Black;
+            this.label23.Location = new System.Drawing.Point(17, 247);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(66, 50);
+            this.label23.TabIndex = 9;
+            this.label23.Text = "28";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label24
+            // 
+            this.label24.BackColor = System.Drawing.Color.MistyRose;
+            this.label24.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.Color.Black;
+            this.label24.Location = new System.Drawing.Point(17, 303);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(66, 50);
+            this.label24.TabIndex = 8;
+            this.label24.Text = "29";
+            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label25
+            // 
+            this.label25.BackColor = System.Drawing.Color.NavajoWhite;
+            this.label25.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.ForeColor = System.Drawing.Color.Black;
+            this.label25.Location = new System.Drawing.Point(17, 359);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(66, 50);
+            this.label25.TabIndex = 7;
+            this.label25.Text = "30";
+            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // numberPanel2
+            // 
+            this.numberPanel2.Controls.Add(this.label26);
+            this.numberPanel2.Controls.Add(this.num2down2);
+            this.numberPanel2.Controls.Add(this.num2down1);
+            this.numberPanel2.Controls.Add(this.num2RES);
+            this.numberPanel2.Controls.Add(this.num2Counter);
+            this.numberPanel2.Controls.Add(this.num2Queue);
+            this.numberPanel2.Controls.Add(this.num2ID);
+            this.numberPanel2.Controls.Add(this.num2PBox);
+            this.numberPanel2.Location = new System.Drawing.Point(0, 0);
+            this.numberPanel2.Name = "numberPanel2";
+            this.numberPanel2.Size = new System.Drawing.Size(269, 341);
+            this.numberPanel2.TabIndex = 13;
+            // 
+            // label26
+            // 
+            this.label26.BackColor = System.Drawing.Color.NavajoWhite;
+            this.label26.Font = new System.Drawing.Font("Century Gothic", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(209, 58);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(35, 23);
+            this.label26.TabIndex = 12;
+            this.label26.Text = "2 : 24";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // num2down2
+            // 
+            this.num2down2.BackColor = System.Drawing.Color.NavajoWhite;
+            this.num2down2.Font = new System.Drawing.Font("Century Gothic", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num2down2.Location = new System.Drawing.Point(39, 316);
+            this.num2down2.Name = "num2down2";
+            this.num2down2.Size = new System.Drawing.Size(198, 16);
+            this.num2down2.TabIndex = 11;
+            this.num2down2.Text = "4 : 00 PM     11 - 27 - 2017";
+            this.num2down2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // num2down1
+            // 
+            this.num2down1.BackColor = System.Drawing.Color.NavajoWhite;
+            this.num2down1.Font = new System.Drawing.Font("Century Gothic", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num2down1.Location = new System.Drawing.Point(39, 300);
+            this.num2down1.Name = "num2down1";
+            this.num2down1.Size = new System.Drawing.Size(198, 16);
+            this.num2down1.TabIndex = 10;
+            this.num2down1.Text = "This number is usable within this day\r\n\r\n";
+            this.num2down1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // num2RES
+            // 
+            this.num2RES.BackColor = System.Drawing.Color.NavajoWhite;
+            this.num2RES.Font = new System.Drawing.Font("Century Gothic", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num2RES.Location = new System.Drawing.Point(0, 58);
+            this.num2RES.Name = "num2RES";
+            this.num2RES.Size = new System.Drawing.Size(237, 23);
+            this.num2RES.TabIndex = 9;
+            this.num2RES.Text = "REMAINING ESTIMATED SERVE TIME :";
+            this.num2RES.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // num2Counter
+            // 
+            this.num2Counter.BackColor = System.Drawing.Color.NavajoWhite;
+            this.num2Counter.Font = new System.Drawing.Font("Century Gothic", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num2Counter.Location = new System.Drawing.Point(0, 251);
+            this.num2Counter.Name = "num2Counter";
+            this.num2Counter.Size = new System.Drawing.Size(269, 31);
+            this.num2Counter.TabIndex = 2;
+            this.num2Counter.Text = "Counter 3";
+            this.num2Counter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // num2Queue
+            // 
+            this.num2Queue.BackColor = System.Drawing.Color.NavajoWhite;
+            this.num2Queue.Font = new System.Drawing.Font("Century Gothic", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num2Queue.Location = new System.Drawing.Point(0, 143);
+            this.num2Queue.Name = "num2Queue";
+            this.num2Queue.Size = new System.Drawing.Size(269, 108);
+            this.num2Queue.TabIndex = 1;
+            this.num2Queue.Text = "100";
+            this.num2Queue.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // num2ID
+            // 
+            this.num2ID.BackColor = System.Drawing.Color.NavajoWhite;
+            this.num2ID.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num2ID.Location = new System.Drawing.Point(0, 97);
+            this.num2ID.Name = "num2ID";
+            this.num2ID.Size = new System.Drawing.Size(269, 46);
+            this.num2ID.TabIndex = 3;
+            this.num2ID.Text = "ID # 2013-99665";
+            this.num2ID.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // num2PBox
+            // 
+            this.num2PBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.num2PBox.Image = ((System.Drawing.Image)(resources.GetObject("num2PBox.Image")));
+            this.num2PBox.Location = new System.Drawing.Point(0, 0);
+            this.num2PBox.Name = "num2PBox";
+            this.num2PBox.Size = new System.Drawing.Size(269, 341);
+            this.num2PBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.num2PBox.TabIndex = 8;
+            this.num2PBox.TabStop = false;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.DarkGray;
+            this.panel2.Controls.Add(this.label27);
+            this.panel2.Controls.Add(this.label28);
+            this.panel2.Location = new System.Drawing.Point(21, 23);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(172, 106);
+            this.panel2.TabIndex = 0;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.Silver;
+            this.panel5.Location = new System.Drawing.Point(21, 153);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(172, 106);
+            this.panel5.TabIndex = 1;
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.Color.LightGray;
+            this.panel9.Location = new System.Drawing.Point(21, 284);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(172, 106);
+            this.panel9.TabIndex = 2;
+            // 
+            // label27
+            // 
+            this.label27.Font = new System.Drawing.Font("Century Gothic", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(0, 12);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(172, 55);
+            this.label27.TabIndex = 0;
+            this.label27.Text = "200";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label27.Click += new System.EventHandler(this.label27_Click);
+            // 
+            // label28
+            // 
+            this.label28.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(0, 67);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(172, 39);
+            this.label28.TabIndex = 1;
+            this.label28.Text = "Reserved Queue";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.ClientSize = new System.Drawing.Size(906, 525);
-            this.Controls.Add(this.guestPanel);
             this.Controls.Add(this.studentPanel);
+            this.Controls.Add(this.guestPanel);
+            this.Controls.Add(this.panel8);
             this.Controls.Add(this.numberPanel);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel8);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -569,8 +840,12 @@
             this.guestPanel.ResumeLayout(false);
             this.guestPanel.PerformLayout();
             this.panel7.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.numberPanel.ResumeLayout(false);
+            this.numberPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.num2PBox)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -617,6 +892,27 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Panel numberPanel2;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label num2down2;
+        private System.Windows.Forms.Label num2down1;
+        private System.Windows.Forms.Label num2RES;
+        private System.Windows.Forms.Label num2Counter;
+        private System.Windows.Forms.Label num2Queue;
+        private System.Windows.Forms.Label num2ID;
+        private System.Windows.Forms.PictureBox num2PBox;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label28;
     }
 }
 

@@ -199,6 +199,11 @@ namespace Queuing_Application
 
         }
 
+        private void label27_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         //Textbox effects
 
