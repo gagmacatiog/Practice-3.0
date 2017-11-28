@@ -7,3 +7,13 @@ c:\users\george albert\documents\visual studio 2015\Projects\Queuing Application
 c:\users\george albert\documents\visual studio 2015\Projects\Queuing Application\Queuing Application\obj\Debug\Queuing Application.csproj.GenerateResource.Cache
 c:\users\george albert\documents\visual studio 2015\Projects\Queuing Application\Queuing Application\obj\Debug\Queuing Application.exe
 c:\users\george albert\documents\visual studio 2015\Projects\Queuing Application\Queuing Application\obj\Debug\Queuing Application.pdb
+C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing Application\bin\Debug\Queuing Application.exe.config
+C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing Application\obj\Debug\Queuing Application.exe
+C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing Application\obj\Debug\Queuing Application.pdb
+C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing Application\bin\Debug\Queuing Application.exe
+C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing Application\bin\Debug\Queuing Application.pdb
+C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing Application\obj\Debug\Queuing Application.csprojResolveAssemblyReference.cache
+C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Form1.resources
+C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Properties.Resources.resources
+C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing Application\obj\Debug\Queuing Application.csproj.GenerateResource.Cache
+C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Form2.resources

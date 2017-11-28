@@ -5,9 +5,10 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace Queuing_Application
 {
@@ -15,7 +16,7 @@ namespace Queuing_Application
     {
         int PW;
         bool Hided, qHided, gHided;
-        SqlConnection con = new SqlConnection(@"Data Source=GEORGE-PC;Initial Catalog=practice-1.0;Persist Security Info=True;User ID=sa;Password=123456");
+        SqlConnection con = new SqlConnection(@"Data Source=GEORGE-PC;Initial Catalog=practice1.0;Persist Security Info=True;User ID=sa;Password=123456");
         public Form1()
         {
             InitializeComponent();
@@ -23,10 +24,13 @@ namespace Queuing_Application
             comboBox1.Items.Insert(0, "Transaction Code");
             comboBox1.SelectedIndex = 0;
             comboBox1.ForeColor = Color.Silver;
+            gcomboBox2.Items.Insert(0, "Transaction Code");
+            gcomboBox2.SelectedIndex = 0;
+            gcomboBox2.ForeColor = Color.Silver;
             studentPanel.Visible = false;
             guestPanel.Visible = false;
-            Hided = false;
-
+            Hided = true;
+            this.sidebar_minimize();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -34,12 +38,14 @@ namespace Queuing_Application
             if(qHided == true)
             {
                 timer2.Start();
-                this.sidebar_minimize();
+                timer4.Start();
+                Hided = true;
             }
             else if(gHided == true)
             {
                 timer3.Start();
-                this.sidebar_minimize();
+                timer4.Start();
+                Hided = true;
             }
             else
             {
@@ -66,6 +72,11 @@ namespace Queuing_Application
                 timer1.Stop();
             }
 
+        }
+        private void timer4_Tick(object sender, EventArgs e)
+        {
+            this.sidebar_minimize();
+            timer4.Stop();
         }
 
         private void sidebar_minimize()
@@ -163,19 +174,63 @@ namespace Queuing_Application
 
         private void studentSubmit_Click(object sender, EventArgs e)
         {
-            con.Open();
-            SqlCommand cmd = con.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "insert into queuelist (name,transaction_code) values('" + textBox1.Text + "','"+comboBox1.Text+"')";
-            cmd.ExecuteNonQuery();
-            con.Close();
+            if (checkFields() == true)
+            {
+                con.Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "insert into Main_Queue (Student_ID,user_queue_ID,Service_Office,Status) values('" + textBox1.Text + "','', '" + comboBox1.SelectedIndex + "', 'Student')";
+                cmd.ExecuteNonQuery();
+                con.Close();
 
-            MessageBox.Show("success!!");
+                Form2 f2 = new Form2();
+                f2.Show();
+
+                //Clear Value
+                textBox1.Clear();
+                comboBox1.SelectedIndex = 0;
+
+                timer2.Start();
+            }
+            else
+            {
+                MessageBox.Show("Please Fill up the Form!");
+            }
         }
 
         private void guestSubmit_Click(object sender, EventArgs e)
         {
+            if (checkFields() == true)
+            {
+                con.Open();
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "insert into Main_Queue (Student_ID,user_queue_ID,Service_Office,Status) values('" + gtextBox2.Text + "','', '" + gcomboBox2.SelectedIndex + "', 'Walk-In')";
+                cmd.ExecuteNonQuery();
+                con.Close();
 
+                Form2 f2 = new Form2();
+                f2.Show();
+
+                //Clear Value
+                gtextBox2.Clear();
+                gcomboBox2.SelectedIndex = 0;
+
+                timer3.Start();
+            }else
+            {
+                MessageBox.Show("Please Fill up the Form!");
+            }
+        }
+
+        private bool checkFields()
+        {
+            if (textBox1.Text != "" && comboBox1.SelectedIndex != 0 || gtextBox2.Text != "" && gcomboBox2.SelectedIndex != 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         //Textbox effects
