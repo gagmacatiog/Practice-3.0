@@ -16,11 +16,12 @@ namespace Queuing_Application
     {
         int PW;
         bool Hided, qHided, gHided;
+        DateTime thisday = DateTime.Today;
         SqlConnection con = new SqlConnection(@"Data Source=GEORGE-PC;Initial Catalog=practice1.0;Persist Security Info=True;User ID=sa;Password=123456");
         public Form1()
         {
             InitializeComponent();
-            PW = panel1.Width;
+            //PW = panel1.Width;
             comboBox1.Items.Insert(0, "Transaction Code");
             comboBox1.SelectedIndex = 0;
             comboBox1.ForeColor = Color.Silver;
@@ -29,63 +30,13 @@ namespace Queuing_Application
             gcomboBox2.ForeColor = Color.Silver;
             studentPanel.Visible = false;
             guestPanel.Visible = false;
-            Hided = true;
-            this.sidebar_minimize();
+            timer1.Start();
+            label5.Text = DateTime.Now.ToString("d");
+            label16.Text = "4 : 00 PM     " + DateTime.Now.ToString("d");
+            //Hided = true;
+            //this.sidebar_minimize();
         }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            if(qHided == true)
-            {
-                timer2.Start();
-                timer4.Start();
-                Hided = true;
-            }
-            else if(gHided == true)
-            {
-                timer3.Start();
-                timer4.Start();
-                Hided = true;
-            }
-            else
-            {
-                if (Hided == false)
-                {
-                    this.sidebar_minimize();
-                    Hided = true;
-                }
-                else
-                {
-                    timer1.Start();
-                    Hided = false;
-                }
-
-            }
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            pictureBox1.Show();
-            panel1.Width = panel1.Width + 10;
-            if(panel1.Width >= PW)
-            {
-                timer1.Stop();
-            }
-
-        }
-        private void timer4_Tick(object sender, EventArgs e)
-        {
-            this.sidebar_minimize();
-            timer4.Stop();
-        }
-
-        private void sidebar_minimize()
-        {
-            pictureBox1.Hide();
-            panel1.Width = 47;
-            panel1.Show();
-        }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             if (guestPanel.Visible.Equals(true))
@@ -97,6 +48,16 @@ namespace Queuing_Application
             {
                 timer2.Start();
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.timeUpdate();
+        }
+
+        private void timeUpdate()
+        {
+            label4.Text = DateTime.Now.ToString("h:m:s tt");
         }
 
         private void timer3_Tick(object sender, EventArgs e)
@@ -232,6 +193,12 @@ namespace Queuing_Application
 
             return false;
         }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
         //Textbox effects
 

@@ -21,5 +21,6 @@ namespace Queuing_Application
         {
             this.Close();
         }
+
     }
 }
