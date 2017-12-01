@@ -17,3 +17,5 @@ C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing App
 C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Properties.Resources.resources
 C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing Application\obj\Debug\Queuing Application.csproj.GenerateResource.Cache
 C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Form2.resources
+C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Form3.resources
+C:\Users\George Albert\Source\Repos\Practice-3.0\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Form4.resources

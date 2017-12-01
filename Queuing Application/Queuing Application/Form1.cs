@@ -14,8 +14,7 @@ namespace Queuing_Application
 {
     public partial class Form1 : Form
     {
-        int PW;
-        bool Hided, qHided, gHided;
+        bool qHided, gHided;
         DateTime thisday = DateTime.Today;
         SqlConnection con = new SqlConnection(@"Data Source=GEORGE-PC;Initial Catalog=practice1.0;Persist Security Info=True;User ID=sa;Password=123456");
         public Form1()
@@ -33,6 +32,7 @@ namespace Queuing_Application
             timer1.Start();
             label5.Text = DateTime.Now.ToString("d");
             label16.Text = "4 : 00 PM     " + DateTime.Now.ToString("d");
+            num2down2.Text = "4 : 00 PM     " + DateTime.Now.ToString("d");
             //Hided = true;
             //this.sidebar_minimize();
         }
@@ -66,7 +66,7 @@ namespace Queuing_Application
 
             if (gHided == false)
             {
-                guestPanel.Width = guestPanel.Width + 30;
+                guestPanel.Width = guestPanel.Width + 25;
 
                 if (guestPanel.Width >= 250)
                 {
@@ -77,7 +77,7 @@ namespace Queuing_Application
             }
             else
             {
-                guestPanel.Width = guestPanel.Width - 30;
+                guestPanel.Width = guestPanel.Width - 25;
 
                 if (guestPanel.Width <= 0)
                 {
@@ -107,7 +107,7 @@ namespace Queuing_Application
 
             if (qHided == false)
             {
-                studentPanel.Width = studentPanel.Width + 30;
+                studentPanel.Width = studentPanel.Width + 25;
 
                 if (studentPanel.Width >= 250)
                 {
@@ -118,7 +118,7 @@ namespace Queuing_Application
             }
             else
             {
-                studentPanel.Width = studentPanel.Width - 30;
+                studentPanel.Width = studentPanel.Width - 25;
 
                 if (studentPanel.Width <= 0)
                 {
@@ -145,7 +145,7 @@ namespace Queuing_Application
                 con.Close();
 
                 Form2 f2 = new Form2();
-                f2.Show();
+                f2.ShowDialog();
 
                 //Clear Value
                 textBox1.Clear();
@@ -171,7 +171,7 @@ namespace Queuing_Application
                 con.Close();
 
                 Form2 f2 = new Form2();
-                f2.Show();
+                f2.ShowDialog();
 
                 //Clear Value
                 gtextBox2.Clear();
@@ -202,6 +202,28 @@ namespace Queuing_Application
         private void label27_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void panel9_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel5_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = new Form3();
+            form3.ShowDialog();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form4 form4 = new Form4();
+            form4.ShowDialog();
         }
 
 
