@@ -14,18 +14,15 @@ namespace Queuing_Application
 {
     public partial class Form1 : Form
     {
-        bool qHided, gHided;
-        DateTime thisday = DateTime.Today;
-        SqlConnection con = new SqlConnection(@"Data Source=GEORGE-PC;Initial Catalog=practice1.0;Persist Security Info=True;User ID=sa;Password=123456");
+        private bool qHided, gHided;
+        private DateTime thisday = DateTime.Today;
+        private int newID = 0;
+        private String connection_string = System.Configuration.ConfigurationManager.ConnectionStrings["dbString"].ConnectionString;
         public Form1()
         {
             InitializeComponent();
             //PW = panel1.Width;
-            comboBox1.Items.Insert(0, "Transaction Code");
-            comboBox1.SelectedIndex = 0;
             comboBox1.ForeColor = Color.Silver;
-            gcomboBox2.Items.Insert(0, "Transaction Code");
-            gcomboBox2.SelectedIndex = 0;
             gcomboBox2.ForeColor = Color.Silver;
             studentPanel.Visible = false;
             guestPanel.Visible = false;
@@ -35,6 +32,7 @@ namespace Queuing_Application
             num2down2.Text = "4 : 00 PM     " + DateTime.Now.ToString("d");
             //Hided = true;
             //this.sidebar_minimize();
+            SqlConnection con = new SqlConnection(connection_string);
         }
         
         private void button1_Click(object sender, EventArgs e)
@@ -137,21 +135,55 @@ namespace Queuing_Application
         {
             if (checkFields() == true)
             {
-                con.Open();
-                SqlCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "insert into Main_Queue (Student_ID,user_queue_ID,Service_Office,Status) values('" + textBox1.Text + "','', '" + comboBox1.SelectedIndex + "', 'Student')";
-                cmd.ExecuteNonQuery();
-                con.Close();
+                SqlConnection con = new SqlConnection(connection_string);
+                using (con)
+                {
+                    int count = 0;
+                    try
+                    {
+                        con.Open();
+                        SqlCommand cmd = con.CreateCommand();
+                        SqlCommand cmd2 = con.CreateCommand();
+                        cmd.CommandType = CommandType.Text;
+                        cmd2.CommandType = CommandType.Text;
+                        String query = "select Fullname, StudentNo from vw_es_students where StudentNo = '" + textBox1.Text + "'";
+                        String fullname = "";
+                        cmd = new SqlCommand(query, con);
+                        SqlDataReader dr;
+                        dr = cmd.ExecuteReader();
 
-                Form2 f2 = new Form2();
-                f2.ShowDialog();
+                        while (dr.Read())
+                        {
+                            count += 1;
+                            fullname = dr.GetString(0);
+                        }
+                        if (count == 1)
+                        {
 
-                //Clear Value
-                textBox1.Clear();
-                comboBox1.SelectedIndex = 0;
+                            String query2 = "insert into Queue_WalkIn (Full_Name,Type,Student_No,Transaction_Type,Date) OUTPUT Inserted.id ";
+                            query2 += "values ('" + fullname + "','Student','" + textBox1.Text + "','" + comboBox1.SelectedValue + "',GETDATE())";
+                            cmd2 = new SqlCommand(query2, con);
+                            newID = (int)cmd2.ExecuteScalar();
+                            Form2 f2 = new Form2();
+                            f2.Show();
+                            con.Close();
+                            textBox1.Clear();
+                            timer2.Start();
 
-                timer2.Start();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Student ID not found.");
+                        }
+                        //Clear Value
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+
+                }
             }
             else
             {
@@ -163,22 +195,38 @@ namespace Queuing_Application
         {
             if (checkFields() == true)
             {
-                con.Open();
-                SqlCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "insert into Main_Queue (Student_ID,user_queue_ID,Service_Office,Status) values('" + gtextBox2.Text + "','', '" + gcomboBox2.SelectedIndex + "', 'Walk-In')";
-                cmd.ExecuteNonQuery();
-                con.Close();
+                SqlConnection con = new SqlConnection(connection_string);
+                using (con)
+                {
+                    try
+                    {
+                        con.Open();
+                        SqlCommand cmd = con.CreateCommand();
+                        SqlCommand cmd2 = con.CreateCommand();
+                        cmd.CommandType = CommandType.Text;
+                        cmd2.CommandType = CommandType.Text;
 
-                Form2 f2 = new Form2();
-                f2.ShowDialog();
+                        String query2 = "insert into Queue_WalkIn (Full_Name,Type,Student_ID,Transaction_Type,Date) OUTPUT Inserted.id ";
+                        query2 += "values ('" + gtextBox2.Text + "','Guest',' ','" + gcomboBox2.SelectedValue + "',GETDATE())";
+                        cmd2 = new SqlCommand(query2, con);
+                        newID = (int)cmd2.ExecuteScalar();
+                        Form2 f2 = new Form2();
+                        f2.Show();
+                        con.Close();
 
-                //Clear Value
-                gtextBox2.Clear();
-                gcomboBox2.SelectedIndex = 0;
+                        //Clear Value
+                        gtextBox2.Clear();
+                        timer3.Start();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
 
-                timer3.Start();
-            }else
+                }
+            }
+
+            else
             {
                 MessageBox.Show("Please Fill up the Form!");
             }
@@ -247,6 +295,13 @@ namespace Queuing_Application
                     ((ComboBox)sender).ForeColor = Color.Black;
                 }
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'usep_queueDataSet.Transaction_Type' table. You can move, or remove it, as needed.
+            this.transaction_TypeTableAdapter.Fill(this.usep_queueDataSet.Transaction_Type);
+
         }
 
         private void textBox1_Leave(object sender, EventArgs e)

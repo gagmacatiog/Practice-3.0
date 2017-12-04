@@ -98,6 +98,9 @@
             this.label14 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button5 = new System.Windows.Forms.Button();
+            this.usep_queueDataSet = new Queuing_Application.usep_queueDataSet();
+            this.transactionTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.transaction_TypeTableAdapter = new Queuing_Application.usep_queueDataSetTableAdapters.Transaction_TypeTableAdapter();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -114,6 +117,8 @@
             this.numberPanel.SuspendLayout();
             this.numberPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num2PBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usep_queueDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.transactionTypeBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -259,7 +264,7 @@
             this.studentPanel.Controls.Add(this.textBox1);
             this.studentPanel.Location = new System.Drawing.Point(116, 145);
             this.studentPanel.Name = "studentPanel";
-            this.studentPanel.Size = new System.Drawing.Size(0, 312);
+            this.studentPanel.Size = new System.Drawing.Size(250, 312);
             this.studentPanel.TabIndex = 3;
             this.studentPanel.Visible = false;
             // 
@@ -281,20 +286,17 @@
             // 
             // comboBox1
             // 
-            this.comboBox1.DisplayMember = "(none)";
+            this.comboBox1.DataSource = this.transactionTypeBindingSource;
+            this.comboBox1.DisplayMember = "Transaction_Name";
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox1.ForeColor = System.Drawing.SystemColors.InactiveCaption;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Enrollment",
-            "Payment",
-            "Documents",
-            "Accounts"});
             this.comboBox1.Location = new System.Drawing.Point(18, 67);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(214, 32);
             this.comboBox1.TabIndex = 1;
+            this.comboBox1.ValueMember = "id";
             this.comboBox1.Enter += new System.EventHandler(this.textBox1_Enter);
             this.comboBox1.Leave += new System.EventHandler(this.textBox1_Leave);
             // 
@@ -924,6 +926,20 @@
             this.button5.Text = "Next Queue";
             this.button5.UseVisualStyleBackColor = true;
             // 
+            // usep_queueDataSet
+            // 
+            this.usep_queueDataSet.DataSetName = "usep_queueDataSet";
+            this.usep_queueDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // transactionTypeBindingSource
+            // 
+            this.transactionTypeBindingSource.DataMember = "Transaction_Type";
+            this.transactionTypeBindingSource.DataSource = this.usep_queueDataSet;
+            // 
+            // transaction_TypeTableAdapter
+            // 
+            this.transaction_TypeTableAdapter.ClearBeforeFill = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -942,6 +958,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -960,6 +977,8 @@
             this.numberPanel.ResumeLayout(false);
             this.numberPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.num2PBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usep_queueDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.transactionTypeBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1034,6 +1053,9 @@
         public System.Windows.Forms.Button button3;
         public System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private usep_queueDataSet usep_queueDataSet;
+        private System.Windows.Forms.BindingSource transactionTypeBindingSource;
+        private usep_queueDataSetTableAdapters.Transaction_TypeTableAdapter transaction_TypeTableAdapter;
     }
 }
 
