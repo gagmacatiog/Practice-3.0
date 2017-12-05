@@ -16,10 +16,15 @@ namespace Queuing_Application
     {
         private bool qHided, gHided;
         private DateTime thisday = DateTime.Today;
-        private int newID = 0;
+        
         private String connection_string = System.Configuration.ConfigurationManager.ConnectionStrings["dbString"].ConnectionString;
+        internal static int newID;
+        private int tickTime;
+        private Label[] sb = new Label[7];
+        private Label[] qb = new Label[7];
         public Form1()
         {
+            newID = 0;
             InitializeComponent();
             //PW = panel1.Width;
             comboBox1.ForeColor = Color.Silver;
@@ -33,6 +38,14 @@ namespace Queuing_Application
             //Hided = true;
             //this.sidebar_minimize();
             SqlConnection con = new SqlConnection(connection_string);
+            sb[0] = this.s1;    qb[0] = this.q1;
+            sb[1] = this.s2;    qb[1] = this.q2;
+            sb[2] = this.s3;    qb[2] = this.q3;
+            sb[3] = this.s4;    qb[3] = this.q4;
+            sb[4] = this.s5;    qb[4] = this.q5;
+            sb[5] = this.s6;    qb[5] = this.q6;
+            sb[6] = this.s7;    qb[6] = this.q7;
+
         }
         
         private void button1_Click(object sender, EventArgs e)
@@ -55,13 +68,52 @@ namespace Queuing_Application
 
         private void timeUpdate()
         {
+            int x = 0;
             label4.Text = DateTime.Now.ToString("h:m:s tt");
+            label27.Text = tickTime.ToString();
+            tickTime++;
+            if (tickTime == 50)
+            {
+                SqlConnection con = new SqlConnection(connection_string);
+                tickTime = 0;
+                x = 0;
+                using (con)
+                {
+                    con.Open();
+                    SqlCommand cmd = con.CreateCommand();
+                    SqlCommand cmd2 = con.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd2.CommandType = CommandType.Text;
+                    String query = "select id,Type,Student_No from (select TOP 7 id, Type, Student_No from Main_Queue order by id desc) temp_n order by id asc ";
+                    
+                    cmd = new SqlCommand(query, con);
+                    SqlDataReader rdr;
+                    rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        // get the results of each column
+                        // string id = (string)rdr["id"];
+                        string id = rdr["id"].ToString();
+                        string type = (string)rdr["Type"];
+                        string s_id = (string)rdr["Student_No"];
+
+                        qb[x].Text = id;
+                        if (type == "Student") { sb[x].Text = s_id; }
+                        else { sb[x].Text = type; }
+                        x++;
+
+                    }
+                }
+
+
+
+            }
         }
 
         private void timer3_Tick(object sender, EventArgs e)
         {
             guestPanel.Show();
-
+            gtextBox2.Clear();
             if (gHided == false)
             {
                 guestPanel.Width = guestPanel.Width + 25;
@@ -102,7 +154,7 @@ namespace Queuing_Application
         private void timer2_Tick(object sender, EventArgs e)
         {
             studentPanel.Show();
-
+            textBox1.Clear();
             if (qHided == false)
             {
                 studentPanel.Width = studentPanel.Width + 25;
@@ -205,8 +257,8 @@ namespace Queuing_Application
                         SqlCommand cmd2 = con.CreateCommand();
                         cmd.CommandType = CommandType.Text;
                         cmd2.CommandType = CommandType.Text;
-
-                        String query2 = "insert into Queue_WalkIn (Full_Name,Type,Student_ID,Transaction_Type,Date) OUTPUT Inserted.id ";
+                        textBox1.Text=gtextBox2.Text;
+                        String query2 = "insert into Queue_WalkIn (Full_Name,Type,Student_No,Transaction_Type,Date) OUTPUT Inserted.id ";
                         query2 += "values ('" + gtextBox2.Text + "','Guest',' ','" + gcomboBox2.SelectedValue + "',GETDATE())";
                         cmd2 = new SqlCommand(query2, con);
                         newID = (int)cmd2.ExecuteScalar();
@@ -234,7 +286,7 @@ namespace Queuing_Application
 
         private bool checkFields()
         {
-            if (textBox1.Text != "" && comboBox1.SelectedIndex != 0 || gtextBox2.Text != "" && gcomboBox2.SelectedIndex != 0)
+            if (textBox1.Text != ""|| gtextBox2.Text != "")
             {
                 return true;
             }

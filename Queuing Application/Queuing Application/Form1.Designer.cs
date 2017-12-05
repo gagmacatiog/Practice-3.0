@@ -45,6 +45,8 @@
             this.studentPanel = new System.Windows.Forms.Panel();
             this.studentSubmit = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.transactionTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.usep_queueDataSet = new Queuing_Application.usep_queueDataSet();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.guestPanel = new System.Windows.Forms.Panel();
             this.guestSubmit = new System.Windows.Forms.Button();
@@ -52,20 +54,20 @@
             this.gtextBox2 = new System.Windows.Forms.TextBox();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.panel7 = new System.Windows.Forms.Panel();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.q1 = new System.Windows.Forms.Label();
+            this.q2 = new System.Windows.Forms.Label();
+            this.q3 = new System.Windows.Forms.Label();
+            this.q4 = new System.Windows.Forms.Label();
+            this.q5 = new System.Windows.Forms.Label();
+            this.q6 = new System.Windows.Forms.Label();
+            this.q7 = new System.Windows.Forms.Label();
+            this.s1 = new System.Windows.Forms.Label();
+            this.s2 = new System.Windows.Forms.Label();
+            this.s3 = new System.Windows.Forms.Label();
+            this.s4 = new System.Windows.Forms.Label();
+            this.s5 = new System.Windows.Forms.Label();
+            this.s6 = new System.Windows.Forms.Label();
+            this.s7 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
             this.label31 = new System.Windows.Forms.Label();
@@ -98,8 +100,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button5 = new System.Windows.Forms.Button();
-            this.usep_queueDataSet = new Queuing_Application.usep_queueDataSet();
-            this.transactionTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.transaction_TypeTableAdapter = new Queuing_Application.usep_queueDataSetTableAdapters.Transaction_TypeTableAdapter();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -107,6 +107,8 @@
             this.panel4.SuspendLayout();
             this.panel6.SuspendLayout();
             this.studentPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.transactionTypeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usep_queueDataSet)).BeginInit();
             this.guestPanel.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -117,8 +119,6 @@
             this.numberPanel.SuspendLayout();
             this.numberPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num2PBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.usep_queueDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.transactionTypeBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -264,7 +264,7 @@
             this.studentPanel.Controls.Add(this.textBox1);
             this.studentPanel.Location = new System.Drawing.Point(116, 145);
             this.studentPanel.Name = "studentPanel";
-            this.studentPanel.Size = new System.Drawing.Size(250, 312);
+            this.studentPanel.Size = new System.Drawing.Size(0, 312);
             this.studentPanel.TabIndex = 3;
             this.studentPanel.Visible = false;
             // 
@@ -300,10 +300,20 @@
             this.comboBox1.Enter += new System.EventHandler(this.textBox1_Enter);
             this.comboBox1.Leave += new System.EventHandler(this.textBox1_Leave);
             // 
+            // transactionTypeBindingSource
+            // 
+            this.transactionTypeBindingSource.DataMember = "Transaction_Type";
+            this.transactionTypeBindingSource.DataSource = this.usep_queueDataSet;
+            // 
+            // usep_queueDataSet
+            // 
+            this.usep_queueDataSet.DataSetName = "usep_queueDataSet";
+            this.usep_queueDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.textBox1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.textBox1.Location = new System.Drawing.Point(18, 20);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(214, 33);
@@ -341,26 +351,24 @@
             // 
             // gcomboBox2
             // 
+            this.gcomboBox2.DataSource = this.transactionTypeBindingSource;
+            this.gcomboBox2.DisplayMember = "Transaction_Name";
             this.gcomboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.gcomboBox2.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gcomboBox2.ForeColor = System.Drawing.SystemColors.InactiveCaption;
             this.gcomboBox2.FormattingEnabled = true;
-            this.gcomboBox2.Items.AddRange(new object[] {
-            "Enrollment",
-            "Payment",
-            "Documents",
-            "Accounts"});
-            this.gcomboBox2.Location = new System.Drawing.Point(16, 97);
+            this.gcomboBox2.Location = new System.Drawing.Point(16, 67);
             this.gcomboBox2.Name = "gcomboBox2";
             this.gcomboBox2.Size = new System.Drawing.Size(214, 32);
             this.gcomboBox2.TabIndex = 1;
+            this.gcomboBox2.ValueMember = "id";
             this.gcomboBox2.Enter += new System.EventHandler(this.textBox1_Enter);
             this.gcomboBox2.Leave += new System.EventHandler(this.textBox1_Leave);
             // 
             // gtextBox2
             // 
             this.gtextBox2.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gtextBox2.ForeColor = System.Drawing.SystemColors.InactiveCaption;
+            this.gtextBox2.ForeColor = System.Drawing.SystemColors.Desktop;
             this.gtextBox2.Location = new System.Drawing.Point(16, 20);
             this.gtextBox2.Name = "gtextBox2";
             this.gtextBox2.Size = new System.Drawing.Size(214, 33);
@@ -376,193 +384,193 @@
             // 
             // panel7
             // 
-            this.panel7.Controls.Add(this.label19);
-            this.panel7.Controls.Add(this.label20);
-            this.panel7.Controls.Add(this.label21);
-            this.panel7.Controls.Add(this.label22);
-            this.panel7.Controls.Add(this.label23);
-            this.panel7.Controls.Add(this.label24);
-            this.panel7.Controls.Add(this.label25);
-            this.panel7.Controls.Add(this.label12);
-            this.panel7.Controls.Add(this.label11);
-            this.panel7.Controls.Add(this.label10);
-            this.panel7.Controls.Add(this.label9);
-            this.panel7.Controls.Add(this.label8);
-            this.panel7.Controls.Add(this.label7);
-            this.panel7.Controls.Add(this.label6);
+            this.panel7.Controls.Add(this.q1);
+            this.panel7.Controls.Add(this.q2);
+            this.panel7.Controls.Add(this.q3);
+            this.panel7.Controls.Add(this.q4);
+            this.panel7.Controls.Add(this.q5);
+            this.panel7.Controls.Add(this.q6);
+            this.panel7.Controls.Add(this.q7);
+            this.panel7.Controls.Add(this.s1);
+            this.panel7.Controls.Add(this.s2);
+            this.panel7.Controls.Add(this.s3);
+            this.panel7.Controls.Add(this.s4);
+            this.panel7.Controls.Add(this.s5);
+            this.panel7.Controls.Add(this.s6);
+            this.panel7.Controls.Add(this.s7);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel7.Location = new System.Drawing.Point(650, 80);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(256, 445);
             this.panel7.TabIndex = 6;
             // 
-            // label19
+            // q1
             // 
-            this.label19.BackColor = System.Drawing.Color.NavajoWhite;
-            this.label19.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.ForeColor = System.Drawing.Color.Black;
-            this.label19.Location = new System.Drawing.Point(17, 23);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(66, 50);
-            this.label19.TabIndex = 13;
-            this.label19.Text = "24";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.q1.BackColor = System.Drawing.Color.NavajoWhite;
+            this.q1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.q1.ForeColor = System.Drawing.Color.Black;
+            this.q1.Location = new System.Drawing.Point(17, 23);
+            this.q1.Name = "q1";
+            this.q1.Size = new System.Drawing.Size(66, 50);
+            this.q1.TabIndex = 13;
+            this.q1.Text = "24";
+            this.q1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label20
+            // q2
             // 
-            this.label20.BackColor = System.Drawing.Color.MistyRose;
-            this.label20.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.ForeColor = System.Drawing.Color.Black;
-            this.label20.Location = new System.Drawing.Point(17, 79);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(66, 50);
-            this.label20.TabIndex = 12;
-            this.label20.Text = "25";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.q2.BackColor = System.Drawing.Color.MistyRose;
+            this.q2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.q2.ForeColor = System.Drawing.Color.Black;
+            this.q2.Location = new System.Drawing.Point(17, 79);
+            this.q2.Name = "q2";
+            this.q2.Size = new System.Drawing.Size(66, 50);
+            this.q2.TabIndex = 12;
+            this.q2.Text = "25";
+            this.q2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label21
+            // q3
             // 
-            this.label21.BackColor = System.Drawing.Color.NavajoWhite;
-            this.label21.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.Color.Black;
-            this.label21.Location = new System.Drawing.Point(17, 135);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(66, 50);
-            this.label21.TabIndex = 11;
-            this.label21.Text = "26";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.q3.BackColor = System.Drawing.Color.NavajoWhite;
+            this.q3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.q3.ForeColor = System.Drawing.Color.Black;
+            this.q3.Location = new System.Drawing.Point(17, 135);
+            this.q3.Name = "q3";
+            this.q3.Size = new System.Drawing.Size(66, 50);
+            this.q3.TabIndex = 11;
+            this.q3.Text = "26";
+            this.q3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label22
+            // q4
             // 
-            this.label22.BackColor = System.Drawing.Color.MistyRose;
-            this.label22.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.ForeColor = System.Drawing.Color.Black;
-            this.label22.Location = new System.Drawing.Point(17, 191);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(66, 50);
-            this.label22.TabIndex = 10;
-            this.label22.Text = "27";
-            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.q4.BackColor = System.Drawing.Color.MistyRose;
+            this.q4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.q4.ForeColor = System.Drawing.Color.Black;
+            this.q4.Location = new System.Drawing.Point(17, 191);
+            this.q4.Name = "q4";
+            this.q4.Size = new System.Drawing.Size(66, 50);
+            this.q4.TabIndex = 10;
+            this.q4.Text = "27";
+            this.q4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label23
+            // q5
             // 
-            this.label23.BackColor = System.Drawing.Color.NavajoWhite;
-            this.label23.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.ForeColor = System.Drawing.Color.Black;
-            this.label23.Location = new System.Drawing.Point(17, 247);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(66, 50);
-            this.label23.TabIndex = 9;
-            this.label23.Text = "28";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.q5.BackColor = System.Drawing.Color.NavajoWhite;
+            this.q5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.q5.ForeColor = System.Drawing.Color.Black;
+            this.q5.Location = new System.Drawing.Point(17, 247);
+            this.q5.Name = "q5";
+            this.q5.Size = new System.Drawing.Size(66, 50);
+            this.q5.TabIndex = 9;
+            this.q5.Text = "28";
+            this.q5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label24
+            // q6
             // 
-            this.label24.BackColor = System.Drawing.Color.MistyRose;
-            this.label24.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.ForeColor = System.Drawing.Color.Black;
-            this.label24.Location = new System.Drawing.Point(17, 303);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(66, 50);
-            this.label24.TabIndex = 8;
-            this.label24.Text = "29";
-            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.q6.BackColor = System.Drawing.Color.MistyRose;
+            this.q6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.q6.ForeColor = System.Drawing.Color.Black;
+            this.q6.Location = new System.Drawing.Point(17, 303);
+            this.q6.Name = "q6";
+            this.q6.Size = new System.Drawing.Size(66, 50);
+            this.q6.TabIndex = 8;
+            this.q6.Text = "29";
+            this.q6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label25
+            // q7
             // 
-            this.label25.BackColor = System.Drawing.Color.NavajoWhite;
-            this.label25.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.ForeColor = System.Drawing.Color.Black;
-            this.label25.Location = new System.Drawing.Point(17, 359);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(66, 50);
-            this.label25.TabIndex = 7;
-            this.label25.Text = "30";
-            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.q7.BackColor = System.Drawing.Color.NavajoWhite;
+            this.q7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.q7.ForeColor = System.Drawing.Color.Black;
+            this.q7.Location = new System.Drawing.Point(17, 359);
+            this.q7.Name = "q7";
+            this.q7.Size = new System.Drawing.Size(66, 50);
+            this.q7.TabIndex = 7;
+            this.q7.Text = "30";
+            this.q7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label12
+            // s1
             // 
-            this.label12.BackColor = System.Drawing.Color.NavajoWhite;
-            this.label12.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(86, 23);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(141, 50);
-            this.label12.TabIndex = 6;
-            this.label12.Text = "2013-99665";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.s1.BackColor = System.Drawing.Color.NavajoWhite;
+            this.s1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.s1.ForeColor = System.Drawing.Color.Black;
+            this.s1.Location = new System.Drawing.Point(86, 23);
+            this.s1.Name = "s1";
+            this.s1.Size = new System.Drawing.Size(141, 50);
+            this.s1.TabIndex = 6;
+            this.s1.Text = "2013-99665";
+            this.s1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label11
+            // s2
             // 
-            this.label11.BackColor = System.Drawing.Color.MistyRose;
-            this.label11.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(86, 79);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(141, 50);
-            this.label11.TabIndex = 5;
-            this.label11.Text = "2013-99655";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.s2.BackColor = System.Drawing.Color.MistyRose;
+            this.s2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.s2.ForeColor = System.Drawing.Color.Black;
+            this.s2.Location = new System.Drawing.Point(86, 79);
+            this.s2.Name = "s2";
+            this.s2.Size = new System.Drawing.Size(141, 50);
+            this.s2.TabIndex = 5;
+            this.s2.Text = "2013-99655";
+            this.s2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label10
+            // s3
             // 
-            this.label10.BackColor = System.Drawing.Color.NavajoWhite;
-            this.label10.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(86, 135);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(141, 50);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "2013-99665";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.s3.BackColor = System.Drawing.Color.NavajoWhite;
+            this.s3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.s3.ForeColor = System.Drawing.Color.Black;
+            this.s3.Location = new System.Drawing.Point(86, 135);
+            this.s3.Name = "s3";
+            this.s3.Size = new System.Drawing.Size(141, 50);
+            this.s3.TabIndex = 4;
+            this.s3.Text = "2013-99665";
+            this.s3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label9
+            // s4
             // 
-            this.label9.BackColor = System.Drawing.Color.MistyRose;
-            this.label9.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(86, 191);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(141, 50);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "2013-99665";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.s4.BackColor = System.Drawing.Color.MistyRose;
+            this.s4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.s4.ForeColor = System.Drawing.Color.Black;
+            this.s4.Location = new System.Drawing.Point(86, 191);
+            this.s4.Name = "s4";
+            this.s4.Size = new System.Drawing.Size(141, 50);
+            this.s4.TabIndex = 3;
+            this.s4.Text = "2013-99665";
+            this.s4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label8
+            // s5
             // 
-            this.label8.BackColor = System.Drawing.Color.NavajoWhite;
-            this.label8.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(86, 247);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(141, 50);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "2013-99665";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.s5.BackColor = System.Drawing.Color.NavajoWhite;
+            this.s5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.s5.ForeColor = System.Drawing.Color.Black;
+            this.s5.Location = new System.Drawing.Point(86, 247);
+            this.s5.Name = "s5";
+            this.s5.Size = new System.Drawing.Size(141, 50);
+            this.s5.TabIndex = 2;
+            this.s5.Text = "2013-99665";
+            this.s5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label7
+            // s6
             // 
-            this.label7.BackColor = System.Drawing.Color.MistyRose;
-            this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(86, 303);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(141, 50);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "2013-99665";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.s6.BackColor = System.Drawing.Color.MistyRose;
+            this.s6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.s6.ForeColor = System.Drawing.Color.Black;
+            this.s6.Location = new System.Drawing.Point(86, 303);
+            this.s6.Name = "s6";
+            this.s6.Size = new System.Drawing.Size(141, 50);
+            this.s6.TabIndex = 1;
+            this.s6.Text = "2013-99665";
+            this.s6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label6
+            // s7
             // 
-            this.label6.BackColor = System.Drawing.Color.NavajoWhite;
-            this.label6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(86, 359);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(141, 50);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "2013-99665";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.s7.BackColor = System.Drawing.Color.NavajoWhite;
+            this.s7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.s7.ForeColor = System.Drawing.Color.Black;
+            this.s7.Location = new System.Drawing.Point(86, 359);
+            this.s7.Name = "s7";
+            this.s7.Size = new System.Drawing.Size(141, 50);
+            this.s7.TabIndex = 0;
+            this.s7.Text = "2013-99665";
+            this.s7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel8
             // 
@@ -926,16 +934,6 @@
             this.button5.Text = "Next Queue";
             this.button5.UseVisualStyleBackColor = true;
             // 
-            // usep_queueDataSet
-            // 
-            this.usep_queueDataSet.DataSetName = "usep_queueDataSet";
-            this.usep_queueDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // transactionTypeBindingSource
-            // 
-            this.transactionTypeBindingSource.DataMember = "Transaction_Type";
-            this.transactionTypeBindingSource.DataSource = this.usep_queueDataSet;
-            // 
             // transaction_TypeTableAdapter
             // 
             this.transaction_TypeTableAdapter.ClearBeforeFill = true;
@@ -966,6 +964,8 @@
             this.panel6.ResumeLayout(false);
             this.studentPanel.ResumeLayout(false);
             this.studentPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.transactionTypeBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usep_queueDataSet)).EndInit();
             this.guestPanel.ResumeLayout(false);
             this.guestPanel.PerformLayout();
             this.panel7.ResumeLayout(false);
@@ -977,8 +977,6 @@
             this.numberPanel.ResumeLayout(false);
             this.numberPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.num2PBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.usep_queueDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.transactionTypeBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -992,7 +990,6 @@
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Panel studentPanel;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button studentSubmit;
         private System.Windows.Forms.Panel guestPanel;
         private System.Windows.Forms.Button guestSubmit;
@@ -1014,22 +1011,22 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label s1;
+        private System.Windows.Forms.Label s2;
+        private System.Windows.Forms.Label s3;
+        private System.Windows.Forms.Label s4;
+        private System.Windows.Forms.Label s5;
+        private System.Windows.Forms.Label s6;
+        private System.Windows.Forms.Label s7;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label q1;
+        private System.Windows.Forms.Label q2;
+        private System.Windows.Forms.Label q3;
+        private System.Windows.Forms.Label q4;
+        private System.Windows.Forms.Label q5;
+        private System.Windows.Forms.Label q6;
+        private System.Windows.Forms.Label q7;
         private System.Windows.Forms.Panel numberPanel2;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label num2down2;
@@ -1056,6 +1053,7 @@
         private usep_queueDataSet usep_queueDataSet;
         private System.Windows.Forms.BindingSource transactionTypeBindingSource;
         private usep_queueDataSetTableAdapters.Transaction_TypeTableAdapter transaction_TypeTableAdapter;
+        public System.Windows.Forms.TextBox textBox1;
     }
 }
 
