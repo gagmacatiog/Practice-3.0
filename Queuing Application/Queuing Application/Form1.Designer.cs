@@ -413,7 +413,7 @@
             this.q1.Name = "q1";
             this.q1.Size = new System.Drawing.Size(66, 50);
             this.q1.TabIndex = 13;
-            this.q1.Text = "24";
+            this.q1.Text = "-";
             this.q1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // q2
@@ -425,7 +425,7 @@
             this.q2.Name = "q2";
             this.q2.Size = new System.Drawing.Size(66, 50);
             this.q2.TabIndex = 12;
-            this.q2.Text = "25";
+            this.q2.Text = "-";
             this.q2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // q3
@@ -437,7 +437,7 @@
             this.q3.Name = "q3";
             this.q3.Size = new System.Drawing.Size(66, 50);
             this.q3.TabIndex = 11;
-            this.q3.Text = "26";
+            this.q3.Text = "-";
             this.q3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // q4
@@ -449,7 +449,7 @@
             this.q4.Name = "q4";
             this.q4.Size = new System.Drawing.Size(66, 50);
             this.q4.TabIndex = 10;
-            this.q4.Text = "27";
+            this.q4.Text = "-";
             this.q4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // q5
@@ -461,7 +461,7 @@
             this.q5.Name = "q5";
             this.q5.Size = new System.Drawing.Size(66, 50);
             this.q5.TabIndex = 9;
-            this.q5.Text = "28";
+            this.q5.Text = "-";
             this.q5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // q6
@@ -473,7 +473,7 @@
             this.q6.Name = "q6";
             this.q6.Size = new System.Drawing.Size(66, 50);
             this.q6.TabIndex = 8;
-            this.q6.Text = "29";
+            this.q6.Text = "-";
             this.q6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // q7
@@ -485,7 +485,7 @@
             this.q7.Name = "q7";
             this.q7.Size = new System.Drawing.Size(66, 50);
             this.q7.TabIndex = 7;
-            this.q7.Text = "30";
+            this.q7.Text = "-";
             this.q7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // s1
@@ -497,7 +497,7 @@
             this.s1.Name = "s1";
             this.s1.Size = new System.Drawing.Size(141, 50);
             this.s1.TabIndex = 6;
-            this.s1.Text = "2013-99665";
+            this.s1.Text = "-";
             this.s1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // s2
@@ -509,7 +509,7 @@
             this.s2.Name = "s2";
             this.s2.Size = new System.Drawing.Size(141, 50);
             this.s2.TabIndex = 5;
-            this.s2.Text = "2013-99655";
+            this.s2.Text = "-";
             this.s2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // s3
@@ -521,7 +521,7 @@
             this.s3.Name = "s3";
             this.s3.Size = new System.Drawing.Size(141, 50);
             this.s3.TabIndex = 4;
-            this.s3.Text = "2013-99665";
+            this.s3.Text = "-";
             this.s3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // s4
@@ -533,7 +533,7 @@
             this.s4.Name = "s4";
             this.s4.Size = new System.Drawing.Size(141, 50);
             this.s4.TabIndex = 3;
-            this.s4.Text = "2013-99665";
+            this.s4.Text = "-";
             this.s4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // s5
@@ -545,7 +545,7 @@
             this.s5.Name = "s5";
             this.s5.Size = new System.Drawing.Size(141, 50);
             this.s5.TabIndex = 2;
-            this.s5.Text = "2013-99665";
+            this.s5.Text = "-";
             this.s5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // s6
@@ -557,7 +557,7 @@
             this.s6.Name = "s6";
             this.s6.Size = new System.Drawing.Size(141, 50);
             this.s6.TabIndex = 1;
-            this.s6.Text = "2013-99665";
+            this.s6.Text = "-";
             this.s6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // s7
@@ -569,7 +569,7 @@
             this.s7.Name = "s7";
             this.s7.Size = new System.Drawing.Size(141, 50);
             this.s7.TabIndex = 0;
-            this.s7.Text = "2013-99665";
+            this.s7.Text = "-";
             this.s7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel8

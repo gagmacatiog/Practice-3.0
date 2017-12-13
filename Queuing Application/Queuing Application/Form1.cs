@@ -37,7 +37,6 @@ namespace Queuing_Application
             num2down2.Text = "4 : 00 PM     " + DateTime.Now.ToString("d");
             //Hided = true;
             //this.sidebar_minimize();
-            SqlConnection con = new SqlConnection(connection_string);
             sb[0] = this.s1;    qb[0] = this.q1;
             sb[1] = this.s2;    qb[1] = this.q2;
             sb[2] = this.s3;    qb[2] = this.q3;
@@ -69,10 +68,11 @@ namespace Queuing_Application
         private void timeUpdate()
         {
             int x = 0;
+            int ServicingOffice = 1;
             label4.Text = DateTime.Now.ToString("h:m:s tt");
             label27.Text = tickTime.ToString();
             tickTime++;
-            if (tickTime == 50)
+            if (tickTime == 5)
             {
                 SqlConnection con = new SqlConnection(connection_string);
                 tickTime = 0;
@@ -82,12 +82,14 @@ namespace Queuing_Application
                     con.Open();
                     SqlCommand cmd = con.CreateCommand();
                     SqlCommand cmd2 = con.CreateCommand();
+                    SqlCommand cmd3 = con.CreateCommand();
                     cmd.CommandType = CommandType.Text;
                     cmd2.CommandType = CommandType.Text;
-                    String query = "select id,Type,Student_No from (select TOP 7 id, Type, Student_No from Main_Queue order by id desc) temp_n order by id asc ";
+                    String query = "select id,Type,Student_No from (select TOP 7 id, Type, Student_No from Main_Queue where Servicing_Office = 1 order by id desc) temp_n order by id asc ";
                     
                     cmd = new SqlCommand(query, con);
                     SqlDataReader rdr;
+                    SqlDataReader rdr2;
                     rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
@@ -103,7 +105,16 @@ namespace Queuing_Application
                         x++;
 
                     }
+                    
+                    cmd3.CommandText = "return_total_queue";
+                    cmd3.CommandType = CommandType.StoredProcedure;
+                    cmd3.Parameters.AddWithValue("ServicingOffice", ServicingOffice);
+                    cmd3.Connection = con;
+                    rdr2 = cmd3.ExecuteReader();
+                    while (rdr2.Read()) { label29.Text =  rdr2["a"].ToString();}
+                    
                 }
+                con.Close();
 
 
 
@@ -212,7 +223,7 @@ namespace Queuing_Application
                         if (count == 1)
                         {
 
-                            String query2 = "insert into Queue_WalkIn (Full_Name,Type,Student_No,Transaction_Type,Date) OUTPUT Inserted.id ";
+                            String query2 = "insert into Queue_WalkIn (Full_Name,Type,Student_No,Transaction_Type,Time) OUTPUT Inserted.id ";
                             query2 += "values ('" + fullname + "','Student','" + textBox1.Text + "','" + comboBox1.SelectedValue + "',GETDATE())";
                             cmd2 = new SqlCommand(query2, con);
                             newID = (int)cmd2.ExecuteScalar();
@@ -258,8 +269,8 @@ namespace Queuing_Application
                         cmd.CommandType = CommandType.Text;
                         cmd2.CommandType = CommandType.Text;
                         textBox1.Text=gtextBox2.Text;
-                        String query2 = "insert into Queue_WalkIn (Full_Name,Type,Student_No,Transaction_Type,Date) OUTPUT Inserted.id ";
-                        query2 += "values ('" + gtextBox2.Text + "','Guest',' ','" + gcomboBox2.SelectedValue + "',GETDATE())";
+                        String query2 = "insert into Queue_WalkIn (Full_Name,Type,Student_No,Transaction_Type,Time) OUTPUT Inserted.id ";
+                        query2 += "values ('" + gtextBox2.Text + "','Guest',' N/A ','" + gcomboBox2.SelectedValue + "',GETDATE())";
                         cmd2 = new SqlCommand(query2, con);
                         newID = (int)cmd2.ExecuteScalar();
                         Form2 f2 = new Form2();
