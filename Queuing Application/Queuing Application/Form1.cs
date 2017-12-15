@@ -16,7 +16,7 @@ namespace Queuing_Application
     {
         private bool qHided, gHided;
         private DateTime thisday = DateTime.Today;
-        
+        private static int Servicing_Office = 1;
         private String connection_string = System.Configuration.ConfigurationManager.ConnectionStrings["dbString"].ConnectionString;
         internal static int newID;
         private int tickTime;
@@ -45,8 +45,58 @@ namespace Queuing_Application
             sb[5] = this.s6;    qb[5] = this.q6;
             sb[6] = this.s7;    qb[6] = this.q7;
 
+            Queue_Info_Update();
+
         }
-        
+        private void Queue_Info_Update() {
+            //Checks whether Queue_Info is available.
+            //Writes default data.
+            //Always executed when a Kiosk have been opened.
+            
+            SqlConnection con = new SqlConnection(connection_string);
+            using (con)
+            {
+                con.Open();
+                SqlCommand cmd = con.CreateCommand();
+                SqlCommand cmd2 = con.CreateCommand();
+                SqlCommand cmd3 = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd2.CommandType = CommandType.Text;
+
+                String query = "select * from Queue_Info where Servicing_Office = @Servicing_Office";
+                String query2 = "";
+                cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Servicing_Office", Servicing_Office);
+
+                SqlDataReader rdr;
+                SqlDataReader rdr2;
+                rdr = cmd.ExecuteReader();
+                int rowCount = 0;
+                while (rdr.Read())
+                { rowCount++; { if (rowCount > 0) { break; } } }
+                if (rowCount > 0)
+                {
+                    string Current_Number = rdr["Current_Number"].ToString();
+                    string Status = rdr["Status"].ToString();
+                    MessageBox.Show(Status+" already");
+                }
+                else
+                {
+                    query2 = "insert into Queue_Info (Current_Number,Servicing_Office,Mode,Status,Counter) values (@cn,@so,@m,@sn,@c)";
+                    cmd2 = new SqlCommand(query2, con);
+                    cmd2.Parameters.AddWithValue("@cn", 0);
+                    cmd2.Parameters.AddWithValue("@so", Servicing_Office);
+                    cmd2.Parameters.AddWithValue("@m", 1);
+                    cmd2.Parameters.AddWithValue("@sn", "Online");
+                    cmd2.Parameters.AddWithValue("@c", "0");
+                    int result = cmd2.ExecuteNonQuery();
+                }
+
+            }
+            con.Close();
+
+
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             if (guestPanel.Visible.Equals(true))
@@ -68,11 +118,11 @@ namespace Queuing_Application
         private void timeUpdate()
         {
             int x = 0;
-            int ServicingOffice = 1;
+            
             label4.Text = DateTime.Now.ToString("h:m:s tt");
             label27.Text = tickTime.ToString();
             tickTime++;
-            if (tickTime == 5)
+            if (tickTime == 50)
             {
                 SqlConnection con = new SqlConnection(connection_string);
                 tickTime = 0;
@@ -108,7 +158,7 @@ namespace Queuing_Application
                     
                     cmd3.CommandText = "return_total_queue";
                     cmd3.CommandType = CommandType.StoredProcedure;
-                    cmd3.Parameters.AddWithValue("ServicingOffice", ServicingOffice);
+                    cmd3.Parameters.AddWithValue("ServicingOffice", Servicing_Office);
                     cmd3.Connection = con;
                     rdr2 = cmd3.ExecuteReader();
                     while (rdr2.Read()) { label29.Text =  rdr2["a"].ToString();}
