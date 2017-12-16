@@ -48,6 +48,20 @@ namespace Queuing_Application
             Queue_Info_Update();
 
         }
+        private int return_on_queue(SqlConnection con) {
+            int a = 0;
+
+            SqlCommand cmd3 = con.CreateCommand();
+            SqlDataReader rdr2;
+            cmd3.CommandText = "return_total_queue";
+            cmd3.CommandType = CommandType.StoredProcedure;
+            cmd3.Parameters.AddWithValue("ServicingOffice", Servicing_Office);
+            cmd3.Connection = con;
+            rdr2 = cmd3.ExecuteReader();
+            while (rdr2.Read()) { a = (int)rdr2["a"]; }
+
+            return a;
+        }
         private void Queue_Info_Update() {
             //Checks whether Queue_Info is available.
             //Writes default data.
@@ -69,7 +83,6 @@ namespace Queuing_Application
                 cmd.Parameters.AddWithValue("@Servicing_Office", Servicing_Office);
 
                 SqlDataReader rdr;
-                SqlDataReader rdr2;
                 rdr = cmd.ExecuteReader();
                 int rowCount = 0;
                 while (rdr.Read())
@@ -132,14 +145,12 @@ namespace Queuing_Application
                     con.Open();
                     SqlCommand cmd = con.CreateCommand();
                     SqlCommand cmd2 = con.CreateCommand();
-                    SqlCommand cmd3 = con.CreateCommand();
                     cmd.CommandType = CommandType.Text;
                     cmd2.CommandType = CommandType.Text;
                     String query = "select id,Type,Student_No from (select TOP 7 id, Type, Student_No from Main_Queue where Servicing_Office = 1 order by id desc) temp_n order by id asc ";
                     
                     cmd = new SqlCommand(query, con);
                     SqlDataReader rdr;
-                    SqlDataReader rdr2;
                     rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
@@ -155,13 +166,14 @@ namespace Queuing_Application
                         x++;
 
                     }
-                    
-                    cmd3.CommandText = "return_total_queue";
-                    cmd3.CommandType = CommandType.StoredProcedure;
-                    cmd3.Parameters.AddWithValue("ServicingOffice", Servicing_Office);
-                    cmd3.Connection = con;
-                    rdr2 = cmd3.ExecuteReader();
-                    while (rdr2.Read()) { label29.Text =  rdr2["a"].ToString();}
+
+                    //cmd3.CommandText = "return_total_queue";
+                    //cmd3.CommandType = CommandType.StoredProcedure;
+                    //cmd3.Parameters.AddWithValue("ServicingOffice", Servicing_Office);
+                    //cmd3.Connection = con;
+                    //rdr2 = cmd3.ExecuteReader();
+                    //while (rdr2.Read()) { label29.Text =  rdr2["a"].ToString();}
+                    label29.Text = return_on_queue(con).ToString();
                     
                 }
                 con.Close();
