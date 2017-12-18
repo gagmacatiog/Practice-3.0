@@ -62,6 +62,30 @@ namespace Queuing_Application
 
             return a;
         }
+        private void incrementQueueNumber(SqlConnection con, int res, int q_so) {
+            // increment queue number 
+            SqlCommand cmd4;
+            String query2 = "update Queue_Info set Current_Queue = @n_cq where Servicing_Office = @Servicing_Office";
+            cmd4 = new SqlCommand(query2, con);
+            cmd4.Parameters.AddWithValue("@n_cq", (res + 1));
+            cmd4.Parameters.AddWithValue("@Servicing_Office", q_so);
+            cmd4.ExecuteNonQuery();
+        }
+        private int getQueueNumber(SqlConnection con, int q_so) {
+            // retrieves queue number
+            int res=0;
+
+            SqlCommand cmd3;
+            String query = "select Current_Queue from Queue_Info where Servicing_Office = @Servicing_Office";
+            cmd3 = new SqlCommand(query, con);
+            cmd3.Parameters.AddWithValue("@Servicing_Office", q_so);
+            SqlDataReader rdr2;
+            rdr2 = cmd3.ExecuteReader();
+            while (rdr2.Read()) { res = (int)rdr2["Current_Queue"];}
+            Console.Write("--RETURNING-> getQueueNumber[" + res + "]");
+            incrementQueueNumber(con,res,q_so);
+            return res;
+        }
         private void Queue_Info_Update() {
             //Checks whether Queue_Info is available.
             //Writes default data.
@@ -95,9 +119,10 @@ namespace Queuing_Application
                 }
                 else
                 {
-                    query2 = "insert into Queue_Info (Current_Number,Servicing_Office,Mode,Status,Counter) values (@cn,@so,@m,@sn,@c)";
+                    query2 = "insert into Queue_Info (Current_Number,Current_Queue,Servicing_Office,Mode,Status,Counter) values (@cn,@cq,@so,@m,@sn,@c)";
                     cmd2 = new SqlCommand(query2, con);
-                    cmd2.Parameters.AddWithValue("@cn", 0);
+                    cmd2.Parameters.AddWithValue("@cn", 1);
+                    cmd2.Parameters.AddWithValue("@cq", 1);
                     cmd2.Parameters.AddWithValue("@so", Servicing_Office);
                     cmd2.Parameters.AddWithValue("@m", 1);
                     cmd2.Parameters.AddWithValue("@sn", "Online");
@@ -147,9 +172,10 @@ namespace Queuing_Application
                     SqlCommand cmd2 = con.CreateCommand();
                     cmd.CommandType = CommandType.Text;
                     cmd2.CommandType = CommandType.Text;
-                    String query = "select id,Type,Student_No from (select TOP 7 id, Type, Student_No from Main_Queue where Servicing_Office = 1 order by id desc) temp_n order by id asc ";
+                    String query = "select id,Type,Student_No from (select TOP 7 id, Type, Student_No from Main_Queue where Servicing_Office = @Servicing_Office order by id desc) temp_n order by id asc ";
                     
                     cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@Servicing_Office", Servicing_Office);
                     SqlDataReader rdr;
                     rdr = cmd.ExecuteReader();
                     while (rdr.Read())
@@ -157,7 +183,7 @@ namespace Queuing_Application
                         // get the results of each column
                         // string id = (string)rdr["id"];
                         string id = rdr["id"].ToString();
-                        string type = (string)rdr["Type"];
+                        string type = ((Boolean)rdr["Type"] == false) ? "Student" : "Guest";
                         string s_id = (string)rdr["Student_No"];
 
                         qb[x].Text = id;
@@ -264,8 +290,8 @@ namespace Queuing_Application
                 using (con)
                 {
                     int count = 0;
-                    try
-                    {
+                    //try
+                    //{
                         con.Open();
                         SqlCommand cmd = con.CreateCommand();
                         SqlCommand cmd2 = con.CreateCommand();
@@ -285,9 +311,17 @@ namespace Queuing_Application
                         if (count == 1)
                         {
 
-                            String query2 = "insert into Queue_WalkIn (Full_Name,Type,Student_No,Transaction_Type,Time) OUTPUT Inserted.id ";
-                            query2 += "values ('" + fullname + "','Student','" + textBox1.Text + "','" + comboBox1.SelectedValue + "',GETDATE())";
+                            int c = getQueueNumber(con, Servicing_Office);
+                            String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time) OUTPUT Inserted.Queue_Number";
+                            query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,0,GETDATE())";
+
                             cmd2 = new SqlCommand(query2, con);
+                            cmd2.Parameters.AddWithValue("@q_qn", c);
+                            cmd2.Parameters.AddWithValue("@q_fn", fullname);
+                            cmd2.Parameters.AddWithValue("@q_so", Servicing_Office);
+                            cmd2.Parameters.AddWithValue("@q_sn", textBox1.Text);
+                            cmd2.Parameters.AddWithValue("@q_tt", comboBox1.SelectedValue);
+                            Console.Write("--INSERTING TO Main_Queue--");
                             newID = (int)cmd2.ExecuteScalar();
                             Form2 f2 = new Form2();
                             f2.Show();
@@ -302,11 +336,11 @@ namespace Queuing_Application
                         }
                         //Clear Value
 
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //   MessageBox.Show(ex.Message);
+                    //}
 
                 }
             }
@@ -326,14 +360,22 @@ namespace Queuing_Application
                     try
                     {
                         con.Open();
+                        int c = getQueueNumber(con, Servicing_Office);
                         SqlCommand cmd = con.CreateCommand();
                         SqlCommand cmd2 = con.CreateCommand();
                         cmd.CommandType = CommandType.Text;
                         cmd2.CommandType = CommandType.Text;
                         textBox1.Text=gtextBox2.Text;
-                        String query2 = "insert into Queue_WalkIn (Full_Name,Type,Student_No,Transaction_Type,Time) OUTPUT Inserted.id ";
-                        query2 += "values ('" + gtextBox2.Text + "','Guest',' N/A ','" + gcomboBox2.SelectedValue + "',GETDATE())";
+                        String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time) OUTPUT Inserted.Queue_Number";
+                        query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,1,GETDATE())";
+
                         cmd2 = new SqlCommand(query2, con);
+                        cmd2.Parameters.AddWithValue("@q_qn", c);
+                        cmd2.Parameters.AddWithValue("@q_fn", gtextBox2.Text);
+                        cmd2.Parameters.AddWithValue("@q_so", Servicing_Office);
+                        cmd2.Parameters.AddWithValue("@q_sn", "N/A");
+                        cmd2.Parameters.AddWithValue("@q_tt", gcomboBox2.SelectedValue);
+                        Console.Write("--INSERTING TO Main_Queue--");
                         newID = (int)cmd2.ExecuteScalar();
                         Form2 f2 = new Form2();
                         f2.Show();
