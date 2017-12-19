@@ -172,7 +172,7 @@ namespace Queuing_Application
                     SqlCommand cmd2 = con.CreateCommand();
                     cmd.CommandType = CommandType.Text;
                     cmd2.CommandType = CommandType.Text;
-                    String query = "select id,Type,Student_No from (select TOP 7 id, Type, Student_No from Main_Queue where Servicing_Office = @Servicing_Office order by id desc) temp_n order by id asc ";
+                    String query = "select Queue_Number,Type,Student_No from (select TOP 7 Queue_Number, Type, Student_No from Main_Queue where Servicing_Office = @Servicing_Office order by Queue_Number desc) temp_n order by Queue_Number asc";
                     
                     cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@Servicing_Office", Servicing_Office);
@@ -182,11 +182,11 @@ namespace Queuing_Application
                     {
                         // get the results of each column
                         // string id = (string)rdr["id"];
-                        string id = rdr["id"].ToString();
+                        string qn = rdr["Queue_Number"].ToString();
                         string type = ((Boolean)rdr["Type"] == false) ? "Student" : "Guest";
                         string s_id = (string)rdr["Student_No"];
 
-                        qb[x].Text = id;
+                        qb[x].Text = qn;
                         if (type == "Student") { sb[x].Text = s_id; }
                         else { sb[x].Text = type; }
                         x++;
