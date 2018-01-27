@@ -48,18 +48,42 @@ namespace Queuing_Application
             Queue_Info_Update();
 
         }
+        private int return_transaction_type_offices_count(SqlConnection con, int q_tt) {
+            String query6 = "select Pattern_Max from Transaction_Type where id = @q_tt";
+            SqlCommand cmd6 = new SqlCommand(query6, con);
+            cmd6.Parameters.AddWithValue("@q_tt", q_tt);
+            int c = 0;
+            SqlDataReader rdr3;
+            cmd6.Parameters.AddWithValue("@sn", Servicing_Office);
+            rdr3 = cmd6.ExecuteReader();
+            while (rdr3.Read()) { c = (int)rdr3["Pattern_Max"]; }
+            return c;
+        }
+        private void new_transaction_queue(SqlConnection con, int q_tt) {
+            String query5 = "insert into Queue_Transaction (Main_Queue_ID,Pattern_No,Servicing_Office) values (@q_mid,@q_pn,@sn)";
+            SqlCommand cmd5 = new SqlCommand(query5, con);
+            cmd5.Parameters.AddWithValue("@q_mid", newID);
+            cmd5.Parameters.AddWithValue("@sn", Servicing_Office);
+            //loop -- how many servicing offices
+            int c = 0;
+            for (int x = 0; x < (return_transaction_type_offices_count(con, q_tt)); x++)
+            {
+                c++;
+                cmd5.Parameters.AddWithValue("@q_pn", c);
+                cmd5.ExecuteNonQuery();
+            }
+            c = 0;
+            
+        }
         private int return_on_queue(SqlConnection con) {
             int a = 0;
-
-            SqlCommand cmd3 = con.CreateCommand();
+            String query4 = "select count(*) as a from Main_Queue where Servicing_Office = @sn";
+            SqlCommand cmd3 = new SqlCommand(query4, con);
             SqlDataReader rdr2;
-            cmd3.CommandText = "return_total_queue";
-            cmd3.CommandType = CommandType.StoredProcedure;
-            cmd3.Parameters.AddWithValue("ServicingOffice", Servicing_Office);
-            cmd3.Connection = con;
+            cmd3.Parameters.AddWithValue("@sn", Servicing_Office);
             rdr2 = cmd3.ExecuteReader();
             while (rdr2.Read()) { a = (int)rdr2["a"]; }
-
+            //execute return_total_queue
             return a;
         }
         private void incrementQueueNumber(SqlConnection con, int res, int q_so) {
@@ -312,8 +336,8 @@ namespace Queuing_Application
                         {
 
                             int c = getQueueNumber(con, Servicing_Office);
-                            String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time) OUTPUT Inserted.Queue_Number";
-                            query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,0,GETDATE())";
+                            String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time,Pattern_Current) OUTPUT Inserted.Queue_Number";
+                            query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,0,GETDATE(),@q_pc)";
 
                             cmd2 = new SqlCommand(query2, con);
                             cmd2.Parameters.AddWithValue("@q_qn", c);
@@ -321,6 +345,7 @@ namespace Queuing_Application
                             cmd2.Parameters.AddWithValue("@q_so", Servicing_Office);
                             cmd2.Parameters.AddWithValue("@q_sn", textBox1.Text);
                             cmd2.Parameters.AddWithValue("@q_tt", comboBox1.SelectedValue);
+                            cmd2.Parameters.AddWithValue("@q_pc", 1);
                             Console.Write("--INSERTING TO Main_Queue--");
                             newID = (int)cmd2.ExecuteScalar();
                             Form2 f2 = new Form2();
@@ -366,8 +391,8 @@ namespace Queuing_Application
                         cmd.CommandType = CommandType.Text;
                         cmd2.CommandType = CommandType.Text;
                         textBox1.Text=gtextBox2.Text;
-                        String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time) OUTPUT Inserted.Queue_Number";
-                        query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,1,GETDATE())";
+                        String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time,Pattern_Current) OUTPUT Inserted.Queue_Number";
+                        query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,1,GETDATE(),@q_pc)";
 
                         cmd2 = new SqlCommand(query2, con);
                         cmd2.Parameters.AddWithValue("@q_qn", c);
@@ -375,8 +400,10 @@ namespace Queuing_Application
                         cmd2.Parameters.AddWithValue("@q_so", Servicing_Office);
                         cmd2.Parameters.AddWithValue("@q_sn", "N/A");
                         cmd2.Parameters.AddWithValue("@q_tt", gcomboBox2.SelectedValue);
+                        cmd2.Parameters.AddWithValue("@q_pc", 1);
                         Console.Write("--INSERTING TO Main_Queue--");
                         newID = (int)cmd2.ExecuteScalar();
+                        new_transaction_queue(con, (int)gcomboBox2.SelectedValue);
                         Form2 f2 = new Form2();
                         f2.Show();
                         con.Close();

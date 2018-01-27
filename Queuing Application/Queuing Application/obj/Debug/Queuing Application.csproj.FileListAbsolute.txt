@@ -31,3 +31,15 @@ C:\Users\leomalaya\Desktop\ITP System\itp\Queuing Application\Queuing Applicatio
 C:\Users\leomalaya\Desktop\ITP System\itp\Queuing Application\Queuing Application\obj\Debug\Queuing Application.csproj.GenerateResource.Cache
 C:\Users\leomalaya\Desktop\ITP System\itp\Queuing Application\Queuing Application\bin\Debug\Queuing Application.exe
 C:\Users\leomalaya\Desktop\ITP System\itp\Queuing Application\Queuing Application\bin\Debug\Queuing Application.pdb
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\Queuing Application.exe.config
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing Application.exe
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing Application.pdb
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\Queuing Application.exe
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\Queuing Application.pdb
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing Application.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Form1.resources
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Form2.resources
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Form3.resources
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Form4.resources
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Properties.Resources.resources
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing Application.csproj.GenerateResource.Cache
