@@ -48,6 +48,38 @@ namespace Queuing_Application
             Queue_Info_Update();
 
         }
+        private DataTable getTransactionList()
+        {
+            DataTable transactionList = new DataTable();
+            transactionList.Columns.Add("Transaction_ID", typeof(int));
+            transactionList.Columns.Add("Servicing_Office", typeof(int));
+            transactionList.Columns.Add("Pattern_No", typeof(int));
+
+
+            SqlConnection con = new SqlConnection(connection_string);
+            using (con)
+            {
+                con.Open();
+                SqlCommand t_cmd = con.CreateCommand();
+                SqlDataReader t_rdr;
+
+                String t_q = "select * from Transaction_List";
+                t_cmd = new SqlCommand(t_q, con);
+
+                t_rdr = t_cmd.ExecuteReader();
+                while (t_rdr.Read())
+                {
+                    transactionList.Rows.Add(
+                       (int)t_rdr["Transaction_ID"],
+                       (int)t_rdr["Servicing_Office"],
+                       (int)t_rdr["Pattern_No"]);
+                    Console.Write(" getTransactions -> Added a row! ");
+                }
+                con.Close();
+            }
+            Console.Write(" \n returning transactionList... \n ");
+            return transactionList;
+        }
         private int return_transaction_type_offices_count(SqlConnection con, int q_tt) {
             String query6 = "select Pattern_Max from Transaction_Type where id = @q_tt";
             SqlCommand cmd6 = new SqlCommand(query6, con);
@@ -62,17 +94,47 @@ namespace Queuing_Application
         private void new_transaction_queue(SqlConnection con, int q_tt) {
             String query5 = "insert into Queue_Transaction (Main_Queue_ID,Pattern_No,Servicing_Office) values (@q_mid,@q_pn,@sn)";
             SqlCommand cmd5 = new SqlCommand(query5, con);
-            cmd5.Parameters.AddWithValue("@q_mid", newID);
-            cmd5.Parameters.AddWithValue("@sn", Servicing_Office);
+            
             //loop -- how many servicing offices
-            int c = 0;
+            int c_pattern_no = 0;
+            int c_servicing_office = 0;
+            int temp_pattern_no = 0;
+            int temp_transaction_id = 0;
+            //find servicing office based on pattern number
+            DataTable table_Transactions = getTransactionList();
+
+            foreach (DataRow row in table_Transactions.Rows)
+            {
+                temp_pattern_no = (int)row["Pattern_No"];
+                temp_transaction_id = (int)row["Transaction_ID"];
+                Console.Write(" searching for the servicing office based on pattern number");
+                if ( q_tt == temp_transaction_id && temp_pattern_no == c_pattern_no)
+                {
+                    c_servicing_office = (int)row["Servicing_Office"];
+                    break;
+                }
+            }
             for (int x = 0; x < (return_transaction_type_offices_count(con, q_tt)); x++)
             {
-                c++;
-                cmd5.Parameters.AddWithValue("@q_pn", c);
+                c_pattern_no++;
+                foreach (DataRow row in table_Transactions.Rows)
+                {
+                    temp_pattern_no = (int)row["Pattern_No"];
+                    temp_transaction_id = (int)row["Transaction_ID"];
+                    Console.Write(" searching for the servicing office based on pattern number");
+                    if (q_tt == temp_transaction_id && temp_pattern_no == c_pattern_no)
+                    {
+                        c_servicing_office = (int)row["Servicing_Office"];
+                        break;
+                    }
+                }
+                cmd5.Parameters.AddWithValue("@q_mid", newID);
+                cmd5.Parameters.AddWithValue("@sn", c_servicing_office);
+                cmd5.Parameters.AddWithValue("@q_pn", c_pattern_no);
                 cmd5.ExecuteNonQuery();
+                cmd5.Parameters.Clear();
             }
-            c = 0;
+            
             
         }
         private int return_on_queue(SqlConnection con) {
@@ -353,8 +415,9 @@ namespace Queuing_Application
                             con.Close();
                             textBox1.Clear();
                             timer2.Start();
+                            Console.Write("--INSERTING TO Main_Queue--");
 
-                        }
+                    }
                         else
                         {
                             MessageBox.Show("Student ID not found.");
@@ -496,6 +559,18 @@ namespace Queuing_Application
             // TODO: This line of code loads data into the 'usep_queueDataSet.Transaction_Type' table. You can move, or remove it, as needed.
             this.transaction_TypeTableAdapter.Fill(this.usep_queueDataSet.Transaction_Type);
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            
+            SqlConnection con = new SqlConnection(connection_string);
+            con.Open();
+            String query0 = "TRUNCATE TABLE Main_Queue; TRUNCATE TABLE Queue_Transaction; TRUNCATE TABLE Queue_Info";
+            SqlCommand cmd0 = new SqlCommand(query0, con);
+            cmd0.ExecuteNonQuery();
+            MessageBox.Show("Dropped people on queue, information about queues and queues transactions.");
+            con.Close();
         }
 
         private void textBox1_Leave(object sender, EventArgs e)
