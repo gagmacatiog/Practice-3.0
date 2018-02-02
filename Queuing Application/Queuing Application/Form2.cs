@@ -18,7 +18,7 @@ namespace Queuing_Application
             InitializeComponent();
             Form f = Application.OpenForms["Form1"];
             label1.Text = ((Form1)f).textBox1.Text;
-            label4.Text = Form1.newID.ToString();
+            label4.Text = Form1.shownID.ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)

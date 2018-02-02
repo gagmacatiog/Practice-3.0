@@ -19,6 +19,7 @@ namespace Queuing_Application
         private static int Servicing_Office = 2;
         private String connection_string = System.Configuration.ConfigurationManager.ConnectionStrings["dbString"].ConnectionString;
         internal static int newID;
+        internal static int shownID;
         private int tickTime;
         private Label[] sb = new Label[7];
         private Label[] qb = new Label[7];
@@ -27,6 +28,7 @@ namespace Queuing_Application
         public Form1()
         {
             newID = 0;
+            shownID = 0;
             InitializeComponent();
             //PW = panel1.Width;
             comboBox1.ForeColor = Color.Silver;
@@ -50,6 +52,23 @@ namespace Queuing_Application
             Queue_Info_Update();
             table_Transactions = getTransactionList();
             table_Pattern_Max = getPatternMax();
+        }
+        private int getFirstServicingOffice(int main_queue_id, int q_tt) {
+            int a = 0;
+            int temp_pattern_no = 0;
+            int temp_transaction_id = 0;
+            foreach (DataRow row in table_Transactions.Rows)
+            {
+                temp_pattern_no = (int)row["Pattern_No"];
+                temp_transaction_id = (int)row["Transaction_ID"];
+                Console.Write(" \n retrieving the first servicing office ");
+                if (q_tt == temp_transaction_id && temp_pattern_no == 1)
+                {
+                    a = (int)row["Servicing_Office"];
+                    break;
+                }
+            }
+            return a;
         }
         private int retrievePatternMax(int Transaction_Type) {
             int a = 0, id = 0;
@@ -145,18 +164,7 @@ namespace Queuing_Application
             int temp_pattern_no = 0;
             int temp_transaction_id = 0;
             //find servicing office based on pattern number
-
-            foreach (DataRow row in table_Transactions.Rows)
-            {
-                temp_pattern_no = (int)row["Pattern_No"];
-                temp_transaction_id = (int)row["Transaction_ID"];
-                Console.Write(" searching for the servicing office based on pattern number");
-                if ( q_tt == temp_transaction_id && temp_pattern_no == c_pattern_no)
-                {
-                    c_servicing_office = (int)row["Servicing_Office"];
-                    break;
-                }
-            }
+            
             for (int x = 0; x < (return_transaction_type_offices_count(con, q_tt)); x++)
             {
                 c_pattern_no++;
@@ -212,7 +220,7 @@ namespace Queuing_Application
             rdr2 = cmd3.ExecuteReader();
             while (rdr2.Read()) { res = (int)rdr2["Current_Queue"];}
             Console.Write("--RETURNING-> getQueueNumber[" + res + "]");
-            incrementQueueNumber(con,res,q_so);
+            incrementQueueNumber(con,res,q_so); // FEBRUARY 01 2018 -- FIX!
             return res;
         }
         private void Queue_Info_Update() {
@@ -444,15 +452,19 @@ namespace Queuing_Application
                             String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time,Pattern_Current) OUTPUT Inserted.id";
                             query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,0,GETDATE(),@q_pc)";
 
+                            int _tt_id = (int)comboBox1.SelectedValue;
                             cmd2 = new SqlCommand(query2, con);
                             cmd2.Parameters.AddWithValue("@q_qn", c);
                             cmd2.Parameters.AddWithValue("@q_fn", fullname);
-                            cmd2.Parameters.AddWithValue("@q_so", Servicing_Office);
+                            cmd2.Parameters.AddWithValue("@q_so", getFirstServicingOffice(c, _tt_id));
+                            //cmd2.Parameters.AddWithValue("@q_so", Servicing_Office); // 02 - 01 - 18 -- insert the first servicing office!
                             cmd2.Parameters.AddWithValue("@q_sn", textBox1.Text);
                             cmd2.Parameters.AddWithValue("@q_tt", comboBox1.SelectedValue);
                             cmd2.Parameters.AddWithValue("@q_pc", 1);
                             Console.Write("--INSERTING TO Main_Queue--");
                             newID = (int)cmd2.ExecuteScalar();
+                            shownID = c;
+                            new_transaction_queue(con, _tt_id);
                             Form2 f2 = new Form2();
                             f2.Show();
                             con.Close();
@@ -503,13 +515,14 @@ namespace Queuing_Application
                         cmd2 = new SqlCommand(query2, con);
                         cmd2.Parameters.AddWithValue("@q_qn", c);
                         cmd2.Parameters.AddWithValue("@q_fn", gtextBox2.Text);
-                        cmd2.Parameters.AddWithValue("@q_so", Servicing_Office);
+                        cmd2.Parameters.AddWithValue("@q_so", getFirstServicingOffice(c,_tt_id));
                         cmd2.Parameters.AddWithValue("@q_sn", "N/A");
                         cmd2.Parameters.AddWithValue("@q_tt", _tt_id);
                         cmd2.Parameters.AddWithValue("@q_pc", 1);
                         cmd2.Parameters.AddWithValue("@q_pm", retrievePatternMax(_tt_id));
                         Console.Write("--INSERTING TO Main_Queue--");
                         newID = (int)cmd2.ExecuteScalar();
+                        shownID = c;
                         new_transaction_queue(con, _tt_id);
                         Form2 f2 = new Form2();
                         f2.Show();
