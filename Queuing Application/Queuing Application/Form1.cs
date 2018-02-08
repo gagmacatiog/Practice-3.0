@@ -234,12 +234,11 @@ namespace Queuing_Application
             //execute return_total_queue
             return a;
         }
-        private void incrementQueueNumber(SqlConnection con, int res, int q_so) {
+        private void incrementQueueNumber(SqlConnection con, int q_so) {
             // increment queue number 
             SqlCommand cmd4;
-            String query2 = "update Queue_Info set Current_Queue = @n_cq where Servicing_Office = @Servicing_Office";
+            String query2 = "update Queue_Info set Current_Queue = Current_Queue+1 where Servicing_Office = @Servicing_Office";
             cmd4 = new SqlCommand(query2, con);
-            cmd4.Parameters.AddWithValue("@n_cq", (res + 1));
             cmd4.Parameters.AddWithValue("@Servicing_Office", q_so);
             cmd4.ExecuteNonQuery();
         }
@@ -255,7 +254,7 @@ namespace Queuing_Application
             rdr2 = cmd3.ExecuteReader();
             while (rdr2.Read()) { res = (int)rdr2["Current_Queue"];}
             Console.Write("--RETURNING-> getQueueNumber[" + res + "]");
-            incrementQueueNumber(con,res,q_so); 
+            incrementQueueNumber(con,q_so); 
             return res;
         }
         private void Queue_Info_Update() {
