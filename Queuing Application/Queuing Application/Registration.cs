@@ -42,6 +42,9 @@ namespace Queuing_Application
             }
         }
 
+        private void GroupBox2_Enter(object sender, EventArgs e)
+        {
 
+        }
     }
 }

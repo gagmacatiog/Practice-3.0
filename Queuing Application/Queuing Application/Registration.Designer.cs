@@ -130,6 +130,7 @@
             this.GroupBox2.TabIndex = 12;
             this.GroupBox2.TabStop = false;
             this.GroupBox2.Text = "Account Registration";
+            this.GroupBox2.Enter += new System.EventHandler(this.GroupBox2_Enter);
             // 
             // type
             // 
