@@ -50,10 +50,53 @@ namespace Queuing_Application
             sb[5] = this.s6;    qb[5] = this.q6;
             sb[6] = this.s7;    qb[6] = this.q7;
 
-            table_Transactions = getTransactionList();
-            table_Transaction_Table = getTransactionType();
-            table_Servicing_Office = getServicingOffice();
-            Queue_Info_Update();
+            //table_Transactions = getTransactionList();
+            //table_Transaction_Table = getTransactionType();
+            //table_Servicing_Office = getServicingOffice();
+            //Queue_Info_Update();
+            run_hundredAsync();
+        }
+        private async  void run_hundredAsync() {
+            Console.Write("WARNING: RUNNING HUNDRED UPLOADS!");
+            firebase_Connection fcon = new firebase_Connection();
+            await fcon.rr();
+        }
+        private void Kiosk_Update_QueueInfo(int new_number, int _so)
+        {
+            _Queue_Info qinfo = new _Queue_Info
+            {
+                Current_Queue = new_number,
+            };
+            firebase_Connection fcon = new firebase_Connection();
+            fcon.App_Update_QueueInfo(_so,qinfo);
+        }
+        private async void Kiosk_Insert_QueueTransaction(int id, int c_so, int c_ptrn)
+        {
+            _Queue_Transaction qtr = new _Queue_Transaction
+            {
+                ID = id,
+                Servicing_Office = c_so,
+                Pattern_No = c_ptrn
+            };
+            firebase_Connection fcon = new firebase_Connection();
+            await fcon.App_Insert_QueueTransaction(qtr);
+        }
+        ///<summary>
+        ///Using firebase_Connection class -> Inserting new Queue_Info values on firebase.
+        ///Only to be used once, when an app is initiated while no values on the local database.
+        ///</summary>
+        private async void Kiosk_Insert_QueueInfo(int _so)
+        {
+            _Queue_Info qinfo = new _Queue_Info
+            {
+                Current_Number = 1,
+                Current_Queue = 1,
+                Servicing_Office = _so,
+                Mode = 1,
+                Status = "Online"
+            };
+            firebase_Connection fcon = new firebase_Connection();
+            await fcon.App_Insert_QueueInfo(qinfo);
         }
         private DataTable getServicingOffice()
         {
@@ -219,6 +262,10 @@ namespace Queuing_Application
                 cmd5.Parameters.AddWithValue("@q_pn", c_pattern_no);
                 cmd5.ExecuteNonQuery();
                 cmd5.Parameters.Clear();
+
+                // Inserting data to firebase -> Queue_Transaction // to let the user know where he is
+                Kiosk_Insert_QueueTransaction(newID,c_servicing_office,c_pattern_no);
+                
             }
             
             
@@ -235,12 +282,16 @@ namespace Queuing_Application
             return a;
         }
         private void incrementQueueNumber(SqlConnection con, int q_so) {
+            int b = 0;
             // increment queue number 
             SqlCommand cmd4;
-            String query2 = "update Queue_Info set Current_Queue = Current_Queue+1 where Servicing_Office = @Servicing_Office";
+            String query2 = "update Queue_Info set Current_Queue = Current_Queue+1 OUTPUT Inserted.Current_Queue where Servicing_Office = @Servicing_Office";
             cmd4 = new SqlCommand(query2, con);
             cmd4.Parameters.AddWithValue("@Servicing_Office", q_so);
-            cmd4.ExecuteNonQuery();
+            b = (int)cmd4.ExecuteScalar();
+
+            // Update firebase -> Queue_Info > use the data processed and update the value
+            Kiosk_Update_QueueInfo(b,q_so);
         }
         private int getQueueNumber(SqlConnection con, int q_so) {
             // retrieves queue number
@@ -286,7 +337,7 @@ namespace Queuing_Application
                 {
                     string Current_Number = rdr["Current_Number"].ToString();
                     string Status = rdr["Status"].ToString();
-                    MessageBox.Show(Status+" already");
+                    //MessageBox.Show(Status+" already");
                 }
                 else
                 {
@@ -302,6 +353,9 @@ namespace Queuing_Application
                         cmd2.Parameters.AddWithValue("@sn", "Online");
                         cmd2.Parameters.AddWithValue("@c", "0");
                         int result = cmd2.ExecuteNonQuery();
+
+                        // Inserting data to firebase
+                        Kiosk_Insert_QueueInfo(_so);
                     }
                 }
 

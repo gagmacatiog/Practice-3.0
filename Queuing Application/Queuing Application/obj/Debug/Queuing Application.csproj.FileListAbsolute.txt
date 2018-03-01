@@ -43,3 +43,19 @@ C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\o
 C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Form4.resources
 C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Properties.Resources.resources
 C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing Application.csproj.GenerateResource.Cache
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\Firebase.dll
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\System.Reactive.Core.dll
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\System.Reactive.Interfaces.dll
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\System.Reactive.Linq.dll
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\System.Reactive.PlatformServices.dll
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\System.Reactive.Windows.Threading.dll
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\System.Reactive.Core.xml
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\System.Reactive.Interfaces.xml
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\System.Reactive.Linq.xml
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\System.Reactive.PlatformServices.xml
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\System.Reactive.Windows.Threading.xml
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\Firebase.Auth.dll
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing Application.csproj.CoreCompileInputs.cache
