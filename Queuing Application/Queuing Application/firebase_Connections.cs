@@ -65,6 +65,7 @@ namespace Queuing_Application
                 }
                 finally
                 {
+                    //read this here
                     Thread.Sleep(10000);
                     _Queue_Info aa = new _Queue_Info { Servicing_Office = x };
                     await firebase.Child("test/").PostAsync<_Queue_Info>(aa);
