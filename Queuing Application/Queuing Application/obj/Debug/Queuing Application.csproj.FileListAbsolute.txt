@@ -36,7 +36,6 @@ C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\o
 C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing Application.pdb
 C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\Queuing Application.exe
 C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\Queuing Application.pdb
-C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing Application.csprojResolveAssemblyReference.cache
 C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Form1.resources
 C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Form2.resources
 C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing_Application.Form3.resources
@@ -59,3 +58,4 @@ C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\b
 C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\System.Reactive.Windows.Threading.xml
 C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\bin\Debug\Firebase.Auth.dll
 C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing Application.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Source\Repos\usep_queue\Queuing Application\Queuing Application\obj\Debug\Queuing Application.csprojResolveAssemblyReference.cache

@@ -47,32 +47,44 @@ namespace Queuing_Application
             //}
         }
         public async Task rr() {
+            // This algorithm 'probably' solves disconnection problem.
             int x = 1;
-            var observable = firebase.Child("test/").AsObservable<_Queue_Info>().Subscribe(d => Console.WriteLine(d.Key));
+            //var observable = firebase.Child("test/").AsObservable<_Queue_Info>().Subscribe(d => Console.WriteLine(d.Key));
             async Task okAsync() {
-                try
+                if (x < 10)
                 {
-                    while (x < 100)
+                    try
                     {
-                        x++;
-                        _Queue_Info aa = new _Queue_Info { Servicing_Office = x };
-                        await firebase.Child("test/").PostAsync<_Queue_Info>(aa);
+                        while (x < 10)
+                        {
+                            x++;
+                            _Queue_Info aa = new _Queue_Info { Servicing_Office = x };
+                            await firebase.Child("test/").PostAsync<_Queue_Info>(aa);
+                        }
+                    }
+                    catch (FirebaseException e)
+                    {
+                        Console.Write(">>>> ended at " + x);
+                        Console.Write("ERROR" + e);
+                    }
+                    finally
+                    {
+                        // If internet connection is lost, it tries to resume after 10 seconds.
+                        Thread.Sleep(10000);
+                        if (x < 10)
+                        {
+                            Console.Write("Executing a finally at x" + x);
+                            _Queue_Info aa = new _Queue_Info { Servicing_Office = x };
+                            await firebase.Child("test/").PostAsync<_Queue_Info>(aa);
+                            await okAsync();
+                        }
                     }
                 }
-                catch (FirebaseException e)
-                {
-                    Console.Write("ERROR" + e);
-                }
-                finally
-                {
-                    //read this here
-                    Thread.Sleep(10000);
-                    _Queue_Info aa = new _Queue_Info { Servicing_Office = x };
-                    await firebase.Child("test/").PostAsync<_Queue_Info>(aa);
-                    await okAsync();
-                }
+                Console.Write("Ended outside.");
+               
             }
            await okAsync();
+           Console.Write("Ended very outside.");
 
 
         }
@@ -86,11 +98,18 @@ namespace Queuing_Application
             }
 
         }
-        public async Task Delete(_Queue_Info q_info)
+        public async Task Truncate_Firebase()
         {
-            //>await firebase.Child(node).Child(q_info.Key).DeleteAsync();
+            await firebase.Child("Main_Queue/").DeleteAsync();
+            await firebase.Child("Queue_Transaction/").DeleteAsync();
+            await firebase.Child("Queue_Info/").DeleteAsync();
 
         }
+        //public async Task Delete(_Queue_Info q_info)
+        //{
+        //    //>await firebase.Child(node).Child(q_info.Key).DeleteAsync();
+
+        //}
         public async void App_Update_QueueInfo(int where, _Queue_Info q_info)
         {
             string node = "Queue_Info/";

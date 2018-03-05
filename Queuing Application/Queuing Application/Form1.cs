@@ -26,6 +26,18 @@ namespace Queuing_Application
         DataTable table_Transactions;
         DataTable table_Transaction_Table;
         DataTable table_Servicing_Office;
+
+        //public static async Task<Form1> Create()
+        //{
+        //    Console.Write("Initializing...");
+        //    var page = await Form1.Create();
+        //    Console.Write("Calling first function...");
+        //    await page.run_hundredAsync();
+        //    Console.Write("Returning");
+        //    return page;
+        //}
+        
+
         public Form1()
         {
             newID = 0;
@@ -49,17 +61,30 @@ namespace Queuing_Application
             sb[4] = this.s5;    qb[4] = this.q5;
             sb[5] = this.s6;    qb[5] = this.q6;
             sb[6] = this.s7;    qb[6] = this.q7;
-
-            //table_Transactions = getTransactionList();
-            //table_Transaction_Table = getTransactionType();
-            //table_Servicing_Office = getServicingOffice();
-            //Queue_Info_Update();
-            run_hundredAsync();
+            table_Transactions = getTransactionList();
+            table_Transaction_Table = getTransactionType();
+            table_Servicing_Office = getServicingOffice();
+            Queue_Info_Update();
+            //run_hundredAsync();
         }
-        private async  void run_hundredAsync() {
-            Console.Write("WARNING: RUNNING HUNDRED UPLOADS!");
+
+        //private async void run_hundredAsync()
+        //{
+        //    Console.Write("WARNING: RUNNING HUNDRED UPLOADS!");
+        //    firebase_Connection fcon = new firebase_Connection();
+        //    await fcon.rr();
+        //}
+        private async void Kiosk_Insert_MainQueue(int _qn, int _fso, string _sn, int _tt, int _n_id) {
+            // Function receives: Queue_Number, First_Servicing_Office,Student_No,Transaction_Type
+            _Main_Queue mq = new _Main_Queue {
+                Queue_Number = _qn,
+                Servicing_Office = _fso,
+                Student_No = _sn,
+                Transaction_Type = _tt,
+                ID = _n_id
+            };
             firebase_Connection fcon = new firebase_Connection();
-            await fcon.rr();
+            await fcon.App_Insert_MainQueue(mq);
         }
         private void Kiosk_Update_QueueInfo(int new_number, int _so)
         {
@@ -76,7 +101,8 @@ namespace Queuing_Application
             {
                 ID = id,
                 Servicing_Office = c_so,
-                Pattern_No = c_ptrn
+                Pattern_No = c_ptrn,
+                ID_Pattern = id + "-" + c_ptrn
             };
             firebase_Connection fcon = new firebase_Connection();
             await fcon.App_Insert_QueueTransaction(qtr);
@@ -553,16 +579,24 @@ namespace Queuing_Application
                             cmd2.Parameters.AddWithValue("@q_so", _f_so);
                             //cmd2.Parameters.AddWithValue("@q_so", Servicing_Office); // 02 - 01 - 18 -- insert the first servicing office!
                             cmd2.Parameters.AddWithValue("@q_sn", textBox1.Text);
-                            cmd2.Parameters.AddWithValue("@q_tt", comboBox1.SelectedValue);
+                            cmd2.Parameters.AddWithValue("@q_tt", _tt_id); // Note -> this was changed on March 2, 2018
                             cmd2.Parameters.AddWithValue("@q_pc", 1);
                             Console.Write("--INSERTING TO Main_Queue--");
                             newID = (int)cmd2.ExecuteScalar();
+
+                            // Inserting to firebase - Main_Queue
+                            // Function receives: Queue_Number, First_Servicing_Office,Student_No,Transaction_Type
+                            Kiosk_Insert_MainQueue(c,_f_so,textBox1.Text,_tt_id, newID);
+                            
+
                             shownID = c;
                             new_transaction_queue(con, _tt_id);
                             Form2 f2 = new Form2();
                             f2.Show();
                             con.Close();
                             textBox1.Clear();
+
+                            
                             timer2.Start();
                             Console.Write("--INSERTING TO Main_Queue--");
 
@@ -618,6 +652,12 @@ namespace Queuing_Application
                         cmd2.Parameters.AddWithValue("@q_pm", retrievePatternMax(_tt_id));
                         Console.Write("--INSERTING TO Main_Queue--");
                         newID = (int)cmd2.ExecuteScalar();
+
+                        // Inserting to firebase - Main_Queue
+                        // Function receives: Queue_Number, First_Servicing_Office,Student_No,Transaction_Type
+                        Kiosk_Insert_MainQueue(c, _f_so, textBox1.Text, _tt_id, newID);
+
+
                         shownID = c;
                         new_transaction_queue(con, _tt_id);
                         Form2 f2 = new Form2();
@@ -710,7 +750,7 @@ namespace Queuing_Application
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private async void button5_Click(object sender, EventArgs e)
         {
             
             SqlConnection con = new SqlConnection(connection_string);
@@ -719,6 +759,9 @@ namespace Queuing_Application
             SqlCommand cmd0 = new SqlCommand(query0, con);
             cmd0.ExecuteNonQuery();
             MessageBox.Show("Dropped people on queue, information about queues and queues transactions.");
+            // Doing the work on firebase too
+            firebase_Connection fcon = new firebase_Connection();
+            await fcon.Truncate_Firebase();
             con.Close();
         }
 
