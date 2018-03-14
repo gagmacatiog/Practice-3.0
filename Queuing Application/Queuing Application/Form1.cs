@@ -74,14 +74,15 @@ namespace Queuing_Application
         //    firebase_Connection fcon = new firebase_Connection();
         //    await fcon.rr();
         //}
-        private async void Kiosk_Insert_MainQueue(int _qn, int _fso, string _sn, int _tt, int _n_id) {
+        private async void Kiosk_Insert_MainQueue(int _qn, int _fso, string _sn, int _tt, int _n_id, string _cqn) {
             // Function receives: Queue_Number, First_Servicing_Office,Student_No,Transaction_Type
             _Main_Queue mq = new _Main_Queue {
                 Queue_Number = _qn,
                 Servicing_Office = _fso,
                 Student_No = _sn,
                 Transaction_Type = _tt,
-                ID = _n_id
+                ID = _n_id,
+                Customer_Queue_Number = _cqn
             };
             firebase_Connection fcon = new firebase_Connection();
             await fcon.App_Insert_MainQueue(mq);
@@ -176,7 +177,7 @@ namespace Queuing_Application
             foreach (DataRow row in table_Transaction_Table.Rows)
             {
                 id = (int)row["id"];
-                Console.Write(" searching for the respectice pattern number ");
+                Console.Write(" RetrievePatternMax -> searching for the respective pattern number ");
                 if (id == Transaction_Type)
                 {
                     a = (int)row["Pattern_Max"];
@@ -185,12 +186,31 @@ namespace Queuing_Application
             }
             return a;
         }
+        private string generateQueueShortName(int Transaction_Type, int queueNumber) {
+            string short_name = "";
+            int id = 0;
+            foreach (DataRow row in table_Transaction_Table.Rows)
+            {
+                id = (int)row["id"];
+                Console.Write(" generateQueueShortName - > searching for short name");
+                if (id == Transaction_Type)
+                {
+                    short_name = (string)row["Short_Name"];
+
+                    break;
+                }
+
+            }
+            short_name += queueNumber;
+            return short_name;
+        }
         private DataTable getTransactionType() {
             DataTable a = new DataTable();
             a.Columns.Add("id", typeof(int));
             a.Columns.Add("Pattern_Max", typeof(int));
             a.Columns.Add("Transaction_Name", typeof(string));
             a.Columns.Add("Description", typeof(string));
+            a.Columns.Add("Short_Name", typeof(string));
             SqlConnection con = new SqlConnection(connection_string);
             using (con)
             {
@@ -208,7 +228,8 @@ namespace Queuing_Application
                        (int)a_rdr["id"],
                        (int)a_rdr["Pattern_Max"],
                        (string)a_rdr["Transaction_Name"],
-                       (string)a_rdr["Description"]);
+                       (string)a_rdr["Description"],
+                       (string)a_rdr["Short_Name"]);
                     Console.Write(" write getTransactionType -> Added a row! ");
                 }
                 con.Close();
@@ -372,14 +393,14 @@ namespace Queuing_Application
                         int _so = (int)a["id"];
                         query2 = "insert into Queue_Info (Current_Number,Current_Queue,Servicing_Office,Mode,Status,Counter) values (@cn,@cq,@so,@m,@sn,@c)";
                         cmd2 = new SqlCommand(query2, con);
-                        cmd2.Parameters.AddWithValue("@cn", 1); 
+                        cmd2.Parameters.AddWithValue("@cn", 0); 
                         cmd2.Parameters.AddWithValue("@cq", 1);
                         cmd2.Parameters.AddWithValue("@so", _so);
                         cmd2.Parameters.AddWithValue("@m", 1);
                         cmd2.Parameters.AddWithValue("@sn", "Online");
                         cmd2.Parameters.AddWithValue("@c", "0");
                         int result = cmd2.ExecuteNonQuery();
-
+                        Console.WriteLine("Queue info inserting something...");
                         // Inserting data to firebase
                         Kiosk_Insert_QueueInfo(_so);
                     }
@@ -565,10 +586,11 @@ namespace Queuing_Application
                         }
                         if (count == 1)
                         {
-
+                            // NOTE : THIS IS BARELY UPDATED.
+                            // UPDATE immediately after receiving student database from sir
                             
-                            String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time,Pattern_Current) OUTPUT Inserted.id";
-                            query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,0,GETDATE(),@q_pc)";
+                            String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time,Pattern_Current,Queue_Status) OUTPUT Inserted.id";
+                            query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,0,GETDATE(),@q_pc,@q_qs)";
 
                             int _tt_id = (int)comboBox1.SelectedValue;
                             int _f_so = getFirstServicingOffice(_tt_id);
@@ -581,12 +603,14 @@ namespace Queuing_Application
                             cmd2.Parameters.AddWithValue("@q_sn", textBox1.Text);
                             cmd2.Parameters.AddWithValue("@q_tt", _tt_id); // Note -> this was changed on March 2, 2018
                             cmd2.Parameters.AddWithValue("@q_pc", 1);
+                            cmd2.Parameters.AddWithValue("@q_ps", "Waiting");
                             Console.Write("--INSERTING TO Main_Queue--");
                             newID = (int)cmd2.ExecuteScalar();
 
-                            // Inserting to firebase - Main_Queue
-                            // Function receives: Queue_Number, First_Servicing_Office,Student_No,Transaction_Type
-                            Kiosk_Insert_MainQueue(c,_f_so,textBox1.Text,_tt_id, newID);
+                        // Inserting to firebase - Main_Queue
+                        // Function receives: Queue_Number, First_Servicing_Office,Student_No,Transaction_Type
+                        // disabled temporarily
+                        // Kiosk_Insert_MainQueue(c,_f_so,textBox1.Text,_tt_id, newID);
                             
 
                             shownID = c;
@@ -636,12 +660,13 @@ namespace Queuing_Application
                         cmd.CommandType = CommandType.Text;
                         cmd2.CommandType = CommandType.Text;
                         textBox1.Text=gtextBox2.Text;
-                        String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time,Pattern_Current,Pattern_Max) OUTPUT Inserted.id";
-                        query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,1,GETDATE(),@q_pc,@q_pm)";
+                        String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time,Pattern_Current,Pattern_Max,Customer_Queue_Number,Queue_Status) OUTPUT Inserted.id";
+                        query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,1,GETDATE(),@q_pc,@q_pm,@q_cqn,@q_qs)";
 
                         int _tt_id = (int)gcomboBox2.SelectedValue;
                         int _f_so = getFirstServicingOffice(_tt_id);
                         int c = getQueueNumber(con, _f_so);
+                        string gqsn = generateQueueShortName(_tt_id, c);
                         cmd2 = new SqlCommand(query2, con);
                         cmd2.Parameters.AddWithValue("@q_qn", c);
                         cmd2.Parameters.AddWithValue("@q_fn", gtextBox2.Text);
@@ -650,12 +675,14 @@ namespace Queuing_Application
                         cmd2.Parameters.AddWithValue("@q_tt", _tt_id);
                         cmd2.Parameters.AddWithValue("@q_pc", 1);
                         cmd2.Parameters.AddWithValue("@q_pm", retrievePatternMax(_tt_id));
+                        cmd2.Parameters.AddWithValue("@q_cqn", gqsn);
+                        cmd2.Parameters.AddWithValue("@q_qs", "Waiting");
                         Console.Write("--INSERTING TO Main_Queue--");
                         newID = (int)cmd2.ExecuteScalar();
 
                         // Inserting to firebase - Main_Queue
                         // Function receives: Queue_Number, First_Servicing_Office,Student_No,Transaction_Type
-                        Kiosk_Insert_MainQueue(c, _f_so, textBox1.Text, _tt_id, newID);
+                        Kiosk_Insert_MainQueue(c, _f_so, textBox1.Text, _tt_id, newID,gqsn);
 
 
                         shownID = c;
