@@ -311,11 +311,11 @@ namespace Queuing_Application
                 cmd5.Parameters.Clear();
 
                 // Inserting data to firebase -> Queue_Transaction // to let the user know where he is
-                Kiosk_Insert_QueueTransaction(newID,c_servicing_office,c_pattern_no);
-                
+                // FirebaseFunction: Kiosk_Insert_QueueTransaction(newID,c_servicing_office,c_pattern_no);
+
             }
-            
-            
+
+
         }
         private int return_on_queue(SqlConnection con) {
             int a = 0;
@@ -338,7 +338,7 @@ namespace Queuing_Application
             b = (int)cmd4.ExecuteScalar();
 
             // Update firebase -> Queue_Info > use the data processed and update the value
-            Kiosk_Update_QueueInfo(b,q_so);
+            // FirebaseFunction: Kiosk_Update_QueueInfo(b,q_so);
         }
         private int getQueueNumber(SqlConnection con, int q_so) {
             // retrieves queue number
@@ -402,7 +402,7 @@ namespace Queuing_Application
                         int result = cmd2.ExecuteNonQuery();
                         Console.WriteLine("Queue info inserting something...");
                         // Inserting data to firebase
-                        Kiosk_Insert_QueueInfo(_so);
+                        // FirebaseFunction: Kiosk_Insert_QueueInfo(_so);
                     }
                 }
 
@@ -682,8 +682,8 @@ namespace Queuing_Application
 
                         // Inserting to firebase - Main_Queue
                         // Function receives: Queue_Number, First_Servicing_Office,Student_No,Transaction_Type
-                        Kiosk_Insert_MainQueue(c, _f_so, textBox1.Text, _tt_id, newID,gqsn);
-
+                    
+                        // FirebaseFunction: Kiosk_Insert_MainQueue(c, _f_so, textBox1.Text, _tt_id, newID,gqsn);
 
                         shownID = c;
                         new_transaction_queue(con, _tt_id);
