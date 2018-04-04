@@ -64,7 +64,7 @@ namespace Queuing_Application
             table_Transactions = getTransactionList();
             table_Transaction_Table = getTransactionType();
             table_Servicing_Office = getServicingOffice();
-            Queue_Info_Update();
+            //Queue_Info_Update(); April 4, 2018
             //run_hundredAsync();
         }
 
@@ -124,6 +124,20 @@ namespace Queuing_Application
             };
             firebase_Connection fcon = new firebase_Connection();
             await fcon.App_Insert_QueueInfo(qinfo);
+        }
+        private string getServicingOfficeName(int _so)
+        {
+            string servicing_office_Name = "";
+            foreach (DataRow row in table_Servicing_Office.Rows)
+            {
+                int temp_id = (int)row["id"];
+                if (_so == temp_id)
+                {
+                    servicing_office_Name = (string)row["Name"];
+                    break;
+                }
+            }
+            return servicing_office_Name;
         }
         private DataTable getServicingOffice()
         {
@@ -391,7 +405,7 @@ namespace Queuing_Application
                     foreach (DataRow a in table_Servicing_Office.Rows)
                     {
                         int _so = (int)a["id"];
-                        query2 = "insert into Queue_Info (Current_Number,Current_Queue,Servicing_Office,Mode,Status,Counter) values (@cn,@cq,@so,@m,@sn,@c)";
+                        query2 = "insert into Queue_Info (Current_Number,Current_Queue,Servicing_Office,Mode,Status,Counter,Office_Name) values (@cn,@cq,@so,@m,@sn,@c,@o_n)";
                         cmd2 = new SqlCommand(query2, con);
                         cmd2.Parameters.AddWithValue("@cn", 0); 
                         cmd2.Parameters.AddWithValue("@cq", 1);
@@ -399,6 +413,7 @@ namespace Queuing_Application
                         cmd2.Parameters.AddWithValue("@m", 1);
                         cmd2.Parameters.AddWithValue("@sn", "Online");
                         cmd2.Parameters.AddWithValue("@c", "0");
+                        cmd2.Parameters.AddWithValue("@o_n", getServicingOfficeName(_so));
                         int result = cmd2.ExecuteNonQuery();
                         Console.WriteLine("Queue info inserting something...");
                         // Inserting data to firebase
@@ -586,23 +601,25 @@ namespace Queuing_Application
                         }
                         if (count == 1)
                         {
-                            // NOTE : THIS IS BARELY UPDATED.
-                            // UPDATE immediately after receiving student database from sir
-                            
-                            String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time,Pattern_Current,Queue_Status) OUTPUT Inserted.id";
-                            query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,0,GETDATE(),@q_pc,@q_qs)";
+                        // NOTE : THIS IS BARELY UPDATED.
+                        // Recent update : March 27, 2018
+                        // UPDATE immediately after receiving student database from sir
+                        String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time,Pattern_Current,Pattern_Max,Customer_Queue_Number,Queue_Status) OUTPUT Inserted.id";
+                        query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,1,GETDATE(),@q_pc,@q_pm,@q_cqn,@q_qs)";
 
                             int _tt_id = (int)comboBox1.SelectedValue;
                             int _f_so = getFirstServicingOffice(_tt_id);
                             int c = getQueueNumber(con, _f_so);
+                            string gqsn = generateQueueShortName(_tt_id, c);
                             cmd2 = new SqlCommand(query2, con);
                             cmd2.Parameters.AddWithValue("@q_qn", c);
                             cmd2.Parameters.AddWithValue("@q_fn", fullname);
-                            cmd2.Parameters.AddWithValue("@q_so", _f_so);
-                            //cmd2.Parameters.AddWithValue("@q_so", Servicing_Office); // 02 - 01 - 18 -- insert the first servicing office!
+                            cmd2.Parameters.AddWithValue("@q_so", _f_so); // 02 - 01 - 18 -- insert the first servicing office!
                             cmd2.Parameters.AddWithValue("@q_sn", textBox1.Text);
                             cmd2.Parameters.AddWithValue("@q_tt", _tt_id); // Note -> this was changed on March 2, 2018
                             cmd2.Parameters.AddWithValue("@q_pc", 1);
+                            cmd2.Parameters.AddWithValue("@q_pm", retrievePatternMax(_tt_id));
+                            cmd2.Parameters.AddWithValue("@q_cqn", gqsn);
                             cmd2.Parameters.AddWithValue("@q_ps", "Waiting");
                             Console.Write("--INSERTING TO Main_Queue--");
                             newID = (int)cmd2.ExecuteScalar();
@@ -667,8 +684,19 @@ namespace Queuing_Application
                         int _f_so = getFirstServicingOffice(_tt_id);
                         int c = getQueueNumber(con, _f_so);
                         string gqsn = generateQueueShortName(_tt_id, c);
+
+                    // Values chart
+                    /*
+                     * CUSTOMER_INSERTED_VALUES
+                     * Transaction_Type (the ID)
+                     * Name (for guest), Student_ID (for students)
+                     * 
+                     * PROGRAM_GENERATED_VALUES
+                     * Queue Number
+                     
+                     */
                         cmd2 = new SqlCommand(query2, con);
-                        cmd2.Parameters.AddWithValue("@q_qn", c);
+                        cmd2.Parameters.AddWithValue("@q_qn", c); 
                         cmd2.Parameters.AddWithValue("@q_fn", gtextBox2.Text);
                         cmd2.Parameters.AddWithValue("@q_so", _f_so);
                         cmd2.Parameters.AddWithValue("@q_sn", "N/A");
@@ -782,10 +810,10 @@ namespace Queuing_Application
             
             SqlConnection con = new SqlConnection(connection_string);
             con.Open();
-            String query0 = "TRUNCATE TABLE Main_Queue; TRUNCATE TABLE Queue_Transaction; TRUNCATE TABLE Queue_Info";
+            String query0 = "TRUNCATE TABLE Main_Queue; TRUNCATE TABLE Queue_Transaction; TRUNCATE TABLE Queue_Info; TRUNCATE TABLE Serving_Time";
             SqlCommand cmd0 = new SqlCommand(query0, con);
             cmd0.ExecuteNonQuery();
-            MessageBox.Show("Dropped people on queue, information about queues and queues transactions.");
+            MessageBox.Show("Dropped people on queue, information about queues and queues transactions, as well as serving time table.");
             // Doing the work on firebase too
             firebase_Connection fcon = new firebase_Connection();
             await fcon.Truncate_Firebase();

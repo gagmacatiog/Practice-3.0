@@ -12,6 +12,6 @@ namespace Queuing_Application
         public int Mode { get; set; }
         public string Status { get; set; }
         public int Window { get; set; }
-
+        public string Office_Name { get; set; }
     }
 }
