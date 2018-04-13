@@ -14,9 +14,11 @@ namespace Queuing_Application
 {
     public partial class Form1 : Form
     {
+        #region APP INIT VARIABLES
+        public static double time = 0;
         private bool qHided, gHided;
         private DateTime thisday = DateTime.Today;
-        private static int Servicing_Office = 2;
+        public static int Servicing_Office = 1;
         private String connection_string = System.Configuration.ConfigurationManager.ConnectionStrings["dbString"].ConnectionString;
         internal static int newID;
         internal static int shownID;
@@ -26,20 +28,12 @@ namespace Queuing_Application
         DataTable table_Transactions;
         DataTable table_Transaction_Table;
         DataTable table_Servicing_Office;
+        #endregion
 
-        //public static async Task<Form1> Create()
-        //{
-        //    Console.Write("Initializing...");
-        //    var page = await Form1.Create();
-        //    Console.Write("Calling first function...");
-        //    await page.run_hundredAsync();
-        //    Console.Write("Returning");
-        //    return page;
-        //}
-        
 
         public Form1()
         {
+            #region CONSTRUCTOR
             newID = 0;
             shownID = 0;
             InitializeComponent();
@@ -51,7 +45,6 @@ namespace Queuing_Application
             timer1.Start();
             label5.Text = DateTime.Now.ToString("d");
             label16.Text = "4 : 00 PM     " + DateTime.Now.ToString("d");
-            num2down2.Text = "4 : 00 PM     " + DateTime.Now.ToString("d");
             //Hided = true;
             //this.sidebar_minimize();
             sb[0] = this.s1;    qb[0] = this.q1;
@@ -66,8 +59,9 @@ namespace Queuing_Application
             table_Servicing_Office = getServicingOffice();
             //Queue_Info_Update(); April 4, 2018
             //run_hundredAsync();
+            #endregion
         }
-
+        #region FIREBASE METHODS (NOT USED)
         //private async void run_hundredAsync()
         //{
         //    Console.Write("WARNING: RUNNING HUNDRED UPLOADS!");
@@ -124,6 +118,25 @@ namespace Queuing_Application
             };
             firebase_Connection fcon = new firebase_Connection();
             await fcon.App_Insert_QueueInfo(qinfo);
+        }
+        #endregion
+
+        #region GET METHODS
+        private int getQueueNumber(SqlConnection con, int q_so)
+        {
+            // retrieves queue number
+            int res = 0;
+
+            SqlCommand cmd3;
+            String query = "select Current_Queue from Queue_Info where Servicing_Office = @Servicing_Office";
+            cmd3 = new SqlCommand(query, con);
+            cmd3.Parameters.AddWithValue("@Servicing_Office", q_so);
+            SqlDataReader rdr2;
+            rdr2 = cmd3.ExecuteReader();
+            while (rdr2.Read()) { res = (int)rdr2["Current_Queue"]; }
+            Console.Write("--RETURNING-> getQueueNumber[" + res + "]");
+            incrementQueueNumber(con, q_so);
+            return res;
         }
         private string getServicingOfficeName(int _so)
         {
@@ -282,6 +295,55 @@ namespace Queuing_Application
             Console.Write(" \n returning transactionList... \n ");
             return transactionList;
         }
+        #endregion
+
+        #region HELPING METHODS
+        private void setQueueTicket(SqlConnection con, int _ServicingOffice, string _student_no ,string _cqn, int _queue_number)
+        {
+            string _so_name = getServicingOfficeName(_ServicingOffice);
+            string QUERY_Count_ServingTime = "select count(id) from Serving_Time where Servicing_Office = @param1";
+            SqlCommand CMD_Count_ServingTime = new SqlCommand(QUERY_Count_ServingTime, con);
+            CMD_Count_ServingTime.Parameters.AddWithValue("@param1", _ServicingOffice);
+
+            if ((int)CMD_Count_ServingTime.ExecuteScalar() > 4)
+            {
+                // Give customer estimated time
+                // Retrieve avg time first 
+                int turns_before_customer = 0;
+
+                string QUERY_Average_ServingTime = "select AVG(Duration_Seconds) from Serving_Time where " +
+                            "Servicing_Office = @param1";
+                SqlCommand CMD_Average_ServingTime = new SqlCommand(QUERY_Average_ServingTime, con);
+                CMD_Average_ServingTime.Parameters.AddWithValue("@param1", _ServicingOffice);
+
+                time = (int)CMD_Average_ServingTime.ExecuteScalar();
+
+                // Retrieve how many turns before he will be served
+                string QUERY_Retrieve_BeforeCustomerTurn = "select TOP 1 Current_Number from Queue_Info where Servicing_Office = @param1";
+                SqlCommand CMD_Retrieve_BeforeCustomerTurn = new SqlCommand(QUERY_Retrieve_BeforeCustomerTurn, con);
+                CMD_Retrieve_BeforeCustomerTurn.Parameters.AddWithValue("@param1", _ServicingOffice);
+
+                turns_before_customer = (int)CMD_Retrieve_BeforeCustomerTurn.ExecuteScalar();
+
+                turns_before_customer = _queue_number - turns_before_customer;
+                time = time * turns_before_customer;
+
+                var minutes = Math.Floor((time / 60));
+                var seconds = time - minutes * 60;
+                label26.Text = minutes + ":" + seconds;
+
+            }
+            else
+            {
+                // Estimated time = N/A
+                label26.Text = "N/A";
+            }
+
+            num2ID.Text = _student_no;
+            num2Queue.Text = _cqn;
+            num2Counter.Text = _so_name;
+
+        }
         private int return_transaction_type_offices_count(SqlConnection con, int q_tt) {
             String query6 = "select Pattern_Max from Transaction_Type where id = @q_tt";
             SqlCommand cmd6 = new SqlCommand(query6, con);
@@ -354,21 +416,7 @@ namespace Queuing_Application
             // Update firebase -> Queue_Info > use the data processed and update the value
             // FirebaseFunction: Kiosk_Update_QueueInfo(b,q_so);
         }
-        private int getQueueNumber(SqlConnection con, int q_so) {
-            // retrieves queue number
-            int res=0;
-
-            SqlCommand cmd3;
-            String query = "select Current_Queue from Queue_Info where Servicing_Office = @Servicing_Office";
-            cmd3 = new SqlCommand(query, con);
-            cmd3.Parameters.AddWithValue("@Servicing_Office", q_so);
-            SqlDataReader rdr2;
-            rdr2 = cmd3.ExecuteReader();
-            while (rdr2.Read()) { res = (int)rdr2["Current_Queue"];}
-            Console.Write("--RETURNING-> getQueueNumber[" + res + "]");
-            incrementQueueNumber(con,q_so); 
-            return res;
-        }
+        
         private void Queue_Info_Update() {
             //Checks whether Queue_Info is available.
             //Writes default data.
@@ -425,6 +473,122 @@ namespace Queuing_Application
             con.Close();
 
 
+        }
+        #endregion
+
+        #region OBJECT METHODS
+
+        //Textbox effects
+
+        private void textBox1_Enter(object sender, EventArgs e)
+        {
+            if (sender.GetType().Name == "TextBox")
+            {
+                if (((TextBox)sender).Text == "ID Number" || ((TextBox)sender).Text == "Guest Name")
+                {
+                    ((TextBox)sender).Text = "";
+                    ((TextBox)sender).ForeColor = Color.Black;
+                }
+            }
+            else if (sender.GetType().Name == "ComboBox")
+            {
+                if (((ComboBox)sender).Text == "Transaction Code")
+                {
+                    ((ComboBox)sender).Text = "";
+                    ((ComboBox)sender).ForeColor = Color.Black;
+                }
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'usep_queueDataSet.Transaction_Type' table. You can move, or remove it, as needed.
+            this.transaction_TypeTableAdapter.Fill(this.usep_queueDataSet.Transaction_Type);
+
+        }
+
+        private async void button5_Click(object sender, EventArgs e)
+        {
+
+            SqlConnection con = new SqlConnection(connection_string);
+            con.Open();
+            String query0 = "TRUNCATE TABLE Main_Queue; TRUNCATE TABLE Queue_Info; TRUNCATE TABLE Serving_Time";
+            SqlCommand cmd0 = new SqlCommand(query0, con);
+            cmd0.ExecuteNonQuery();
+            MessageBox.Show("Dropped people on queue, information about queues and queues transactions, as well as serving time table.");
+            // Doing the work on firebase too
+            firebase_Connection fcon = new firebase_Connection();
+            await fcon.Truncate_Firebase();
+            con.Close();
+        }
+
+        private void textBox1_Leave(object sender, EventArgs e)
+        {
+            if (sender.GetType().Name == "TextBox")
+            {
+                if (((TextBox)sender).Text == "")
+                {
+                    if (((TextBox)sender).Name == "textBox1")
+                    {
+                        ((TextBox)sender).Text = "ID Number";
+                    }
+                    else
+                    {
+                        ((TextBox)sender).Text = "Guest Name";
+                    }
+                    ((TextBox)sender).ForeColor = Color.Silver;
+                }
+
+            }
+            else if (sender.GetType().Name == "ComboBox")
+            {
+                if (((ComboBox)sender).Text == "")
+                {
+                    ((ComboBox)sender).Text = "Transaction Code";
+                    ((ComboBox)sender).ForeColor = Color.Silver;
+                }
+            }
+        }
+        private bool checkFields()
+        {
+            if (textBox1.Text != "" || gtextBox2.Text != "")
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label27_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel9_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel5_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = new Form3();
+            form3.ShowDialog();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form4 form4 = new Form4();
+            form4.ShowDialog();
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -570,9 +734,11 @@ namespace Queuing_Application
             }
             
         }
+        #endregion
 
         //Submit Data
 
+        #region MAIN METHODS
         private void studentSubmit_Click(object sender, EventArgs e)
         {
             if (checkFields() == true)
@@ -623,15 +789,11 @@ namespace Queuing_Application
                             cmd2.Parameters.AddWithValue("@q_ps", "Waiting");
                             Console.Write("--INSERTING TO Main_Queue--");
                             newID = (int)cmd2.ExecuteScalar();
-
-                        // Inserting to firebase - Main_Queue
-                        // Function receives: Queue_Number, First_Servicing_Office,Student_No,Transaction_Type
-                        // disabled temporarily
-                        // Kiosk_Insert_MainQueue(c,_f_so,textBox1.Text,_tt_id, newID);
-                            
+                        
+                            //setQueueTicket function here -- uncomment after student db received
 
                             shownID = c;
-                            new_transaction_queue(con, _tt_id);
+                            //new_transaction_queue(con, _tt_id);
                             Form2 f2 = new Form2();
                             f2.Show();
                             con.Close();
@@ -708,13 +870,14 @@ namespace Queuing_Application
                         Console.Write("--INSERTING TO Main_Queue--");
                         newID = (int)cmd2.ExecuteScalar();
 
+                        setQueueTicket(con,_f_so, "Guest", gqsn,c);
                         // Inserting to firebase - Main_Queue
                         // Function receives: Queue_Number, First_Servicing_Office,Student_No,Transaction_Type
                     
                         // FirebaseFunction: Kiosk_Insert_MainQueue(c, _f_so, textBox1.Text, _tt_id, newID,gqsn);
 
                         shownID = c;
-                        new_transaction_queue(con, _tt_id);
+                        //new_transaction_queue(con, _tt_id);
                         Form2 f2 = new Form2();
                         f2.Show();
                         con.Close();
@@ -732,120 +895,7 @@ namespace Queuing_Application
                 MessageBox.Show("Please Fill up the Form!");
             }
         }
-
-        private bool checkFields()
-        {
-            if (textBox1.Text != ""|| gtextBox2.Text != "")
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private void label13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label27_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel9_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel5_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Form3 form3 = new Form3();
-            form3.ShowDialog();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Form4 form4 = new Form4();
-            form4.ShowDialog();
-        }
-
-
-        //Textbox effects
-
-        private void textBox1_Enter(object sender, EventArgs e)
-        {
-            if (sender.GetType().Name == "TextBox")
-            {
-                if (((TextBox)sender).Text == "ID Number" || ((TextBox)sender).Text == "Guest Name")
-                {
-                    ((TextBox)sender).Text = "";
-                    ((TextBox)sender).ForeColor = Color.Black;
-                }
-            }
-            else if (sender.GetType().Name == "ComboBox")
-            {
-                if(((ComboBox)sender).Text == "Transaction Code")
-                {
-                    ((ComboBox)sender).Text = "";
-                    ((ComboBox)sender).ForeColor = Color.Black;
-                }
-            }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            // TODO: This line of code loads data into the 'usep_queueDataSet.Transaction_Type' table. You can move, or remove it, as needed.
-            this.transaction_TypeTableAdapter.Fill(this.usep_queueDataSet.Transaction_Type);
-
-        }
-
-        private async void button5_Click(object sender, EventArgs e)
-        {
-            
-            SqlConnection con = new SqlConnection(connection_string);
-            con.Open();
-            String query0 = "TRUNCATE TABLE Main_Queue; TRUNCATE TABLE Queue_Transaction; TRUNCATE TABLE Queue_Info; TRUNCATE TABLE Serving_Time";
-            SqlCommand cmd0 = new SqlCommand(query0, con);
-            cmd0.ExecuteNonQuery();
-            MessageBox.Show("Dropped people on queue, information about queues and queues transactions, as well as serving time table.");
-            // Doing the work on firebase too
-            firebase_Connection fcon = new firebase_Connection();
-            await fcon.Truncate_Firebase();
-            con.Close();
-        }
-
-        private void textBox1_Leave(object sender, EventArgs e)
-        {
-            if (sender.GetType().Name == "TextBox")
-            {
-                if (((TextBox)sender).Text == "")
-                {
-                    if (((TextBox)sender).Name == "textBox1")
-                    {
-                        ((TextBox)sender).Text = "ID Number";
-                    }
-                    else
-                    {
-                        ((TextBox)sender).Text = "Guest Name";
-                    }
-                    ((TextBox)sender).ForeColor = Color.Silver;
-                }
-                
-            }
-            else if (sender.GetType().Name == "ComboBox")
-            {
-                if(((ComboBox)sender).Text == "")
-                {
-                    ((ComboBox)sender).Text = "Transaction Code";
-                    ((ComboBox)sender).ForeColor = Color.Silver;
-                }
-            }
-        }
+        #endregion
+        
     }
 }

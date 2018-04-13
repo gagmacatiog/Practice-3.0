@@ -101,7 +101,6 @@ namespace Queuing_Application
         public async Task Truncate_Firebase()
         {
             await firebase.Child("Main_Queue/").DeleteAsync();
-            await firebase.Child("Queue_Transaction/").DeleteAsync();
             await firebase.Child("Queue_Info/").DeleteAsync();
 
         }

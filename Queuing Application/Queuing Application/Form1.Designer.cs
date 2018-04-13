@@ -87,8 +87,6 @@
             this.numberPanel = new System.Windows.Forms.Panel();
             this.numberPanel2 = new System.Windows.Forms.Panel();
             this.label26 = new System.Windows.Forms.Label();
-            this.num2down2 = new System.Windows.Forms.Label();
-            this.num2down1 = new System.Windows.Forms.Label();
             this.num2RES = new System.Windows.Forms.Label();
             this.num2Counter = new System.Windows.Forms.Label();
             this.num2Queue = new System.Windows.Forms.Label();
@@ -828,8 +826,6 @@
             // numberPanel2
             // 
             this.numberPanel2.Controls.Add(this.label26);
-            this.numberPanel2.Controls.Add(this.num2down2);
-            this.numberPanel2.Controls.Add(this.num2down1);
             this.numberPanel2.Controls.Add(this.num2RES);
             this.numberPanel2.Controls.Add(this.num2Counter);
             this.numberPanel2.Controls.Add(this.num2Queue);
@@ -844,44 +840,20 @@
             // label26
             // 
             this.label26.BackColor = System.Drawing.Color.NavajoWhite;
-            this.label26.Font = new System.Drawing.Font("Century Gothic", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(279, 71);
+            this.label26.Font = new System.Drawing.Font("Century Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(289, 83);
             this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(47, 28);
             this.label26.TabIndex = 12;
-            this.label26.Text = "2 : 24";
+            this.label26.Text = "N/A";
             this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // num2down2
-            // 
-            this.num2down2.BackColor = System.Drawing.Color.NavajoWhite;
-            this.num2down2.Font = new System.Drawing.Font("Century Gothic", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num2down2.Location = new System.Drawing.Point(52, 389);
-            this.num2down2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.num2down2.Name = "num2down2";
-            this.num2down2.Size = new System.Drawing.Size(264, 20);
-            this.num2down2.TabIndex = 11;
-            this.num2down2.Text = "4 : 00 PM     11 - 27 - 2017";
-            this.num2down2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // num2down1
-            // 
-            this.num2down1.BackColor = System.Drawing.Color.NavajoWhite;
-            this.num2down1.Font = new System.Drawing.Font("Century Gothic", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num2down1.Location = new System.Drawing.Point(52, 369);
-            this.num2down1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.num2down1.Name = "num2down1";
-            this.num2down1.Size = new System.Drawing.Size(264, 20);
-            this.num2down1.TabIndex = 10;
-            this.num2down1.Text = "This number is usable within this day\r\n\r\n";
-            this.num2down1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // num2RES
             // 
             this.num2RES.BackColor = System.Drawing.Color.NavajoWhite;
-            this.num2RES.Font = new System.Drawing.Font("Century Gothic", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num2RES.Location = new System.Drawing.Point(0, 71);
+            this.num2RES.Font = new System.Drawing.Font("Century Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num2RES.Location = new System.Drawing.Point(-3, 83);
             this.num2RES.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.num2RES.Name = "num2RES";
             this.num2RES.Size = new System.Drawing.Size(316, 28);
@@ -893,24 +865,24 @@
             // 
             this.num2Counter.BackColor = System.Drawing.Color.NavajoWhite;
             this.num2Counter.Font = new System.Drawing.Font("Century Gothic", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num2Counter.Location = new System.Drawing.Point(0, 309);
+            this.num2Counter.Location = new System.Drawing.Point(4, 331);
             this.num2Counter.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.num2Counter.Name = "num2Counter";
-            this.num2Counter.Size = new System.Drawing.Size(359, 38);
+            this.num2Counter.Size = new System.Drawing.Size(349, 38);
             this.num2Counter.TabIndex = 2;
-            this.num2Counter.Text = "Counter 3";
+            this.num2Counter.Text = "-----";
             this.num2Counter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // num2Queue
             // 
             this.num2Queue.BackColor = System.Drawing.Color.NavajoWhite;
             this.num2Queue.Font = new System.Drawing.Font("Century Gothic", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num2Queue.Location = new System.Drawing.Point(0, 176);
+            this.num2Queue.Location = new System.Drawing.Point(0, 185);
             this.num2Queue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.num2Queue.Name = "num2Queue";
             this.num2Queue.Size = new System.Drawing.Size(359, 133);
             this.num2Queue.TabIndex = 1;
-            this.num2Queue.Text = "100";
+            this.num2Queue.Text = "-";
             this.num2Queue.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // num2ID
@@ -922,7 +894,7 @@
             this.num2ID.Name = "num2ID";
             this.num2ID.Size = new System.Drawing.Size(359, 57);
             this.num2ID.TabIndex = 3;
-            this.num2ID.Text = "ID # 2013-99665";
+            this.num2ID.Text = "ID # 0000-00000";
             this.num2ID.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // num2PBox
@@ -1096,8 +1068,6 @@
         private System.Windows.Forms.Label q7;
         private System.Windows.Forms.Panel numberPanel2;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label num2down2;
-        private System.Windows.Forms.Label num2down1;
         private System.Windows.Forms.Label num2RES;
         private System.Windows.Forms.Label num2Counter;
         private System.Windows.Forms.Label num2Queue;
