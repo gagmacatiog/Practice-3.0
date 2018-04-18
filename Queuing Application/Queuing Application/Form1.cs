@@ -298,51 +298,79 @@ namespace Queuing_Application
         #endregion
 
         #region HELPING METHODS
-        private void setQueueTicket(SqlConnection con, int _ServicingOffice, string _student_no ,string _cqn, int _queue_number)
+        private void setQueueTicket(SqlConnection con, int _transaction_type, int _ServicingOffice, string _student_no ,string _cqn, int _queue_number)
         {
             string _so_name = getServicingOfficeName(_ServicingOffice);
-            string QUERY_Count_ServingTime = "select count(id) from Serving_Time where Servicing_Office = @param1";
-            SqlCommand CMD_Count_ServingTime = new SqlCommand(QUERY_Count_ServingTime, con);
-            CMD_Count_ServingTime.Parameters.AddWithValue("@param1", _ServicingOffice);
-
-            if ((int)CMD_Count_ServingTime.ExecuteScalar() > 4)
+            foreach (DataRow row in table_Transactions.Rows)
             {
-                // Give customer estimated time
-                // Retrieve avg time first 
-                int turns_before_customer = 0;
+                if (_transaction_type == (int)row["Transaction_ID"])
+                {
+                    string QUERY_Count_ServingTime = "select count(id) from Serving_Time where Servicing_Office = @param1";
+                    SqlCommand CMD_Count_ServingTime = new SqlCommand(QUERY_Count_ServingTime, con);
+                    CMD_Count_ServingTime.Parameters.AddWithValue("@param1", _ServicingOffice);
+                    double temp_time = 0;
+                    if ((int)CMD_Count_ServingTime.ExecuteScalar() > 4)
+                    {
+                        // Give customer estimated time
+                        // Retrieve avg time first 
+                        int turns_before_customer = 0;
 
-                string QUERY_Average_ServingTime = "select AVG(Duration_Seconds) from Serving_Time where " +
-                            "Servicing_Office = @param1";
-                SqlCommand CMD_Average_ServingTime = new SqlCommand(QUERY_Average_ServingTime, con);
-                CMD_Average_ServingTime.Parameters.AddWithValue("@param1", _ServicingOffice);
+                        string QUERY_Average_ServingTime = "select AVG(Duration_Seconds) from Serving_Time where " +
+                                    "Servicing_Office = @param1";
+                        SqlCommand CMD_Average_ServingTime = new SqlCommand(QUERY_Average_ServingTime, con);
+                        CMD_Average_ServingTime.Parameters.AddWithValue("@param1", _ServicingOffice);
 
-                time = (int)CMD_Average_ServingTime.ExecuteScalar();
+                        temp_time = (int)CMD_Average_ServingTime.ExecuteScalar();
 
-                // Retrieve how many turns before he will be served
-                string QUERY_Retrieve_BeforeCustomerTurn = "select TOP 1 Current_Number from Queue_Info where Servicing_Office = @param1";
-                SqlCommand CMD_Retrieve_BeforeCustomerTurn = new SqlCommand(QUERY_Retrieve_BeforeCustomerTurn, con);
-                CMD_Retrieve_BeforeCustomerTurn.Parameters.AddWithValue("@param1", _ServicingOffice);
+                        // Retrieve how many turns before he will be served
+                        string QUERY_Retrieve_BeforeCustomerTurn = "select TOP 1 Current_Number from Queue_Info where Servicing_Office = @param1";
+                        SqlCommand CMD_Retrieve_BeforeCustomerTurn = new SqlCommand(QUERY_Retrieve_BeforeCustomerTurn, con);
+                        CMD_Retrieve_BeforeCustomerTurn.Parameters.AddWithValue("@param1", _ServicingOffice);
 
-                turns_before_customer = (int)CMD_Retrieve_BeforeCustomerTurn.ExecuteScalar();
+                        turns_before_customer = (int)CMD_Retrieve_BeforeCustomerTurn.ExecuteScalar();
 
-                turns_before_customer = _queue_number - turns_before_customer;
-                time = time * turns_before_customer;
+                        turns_before_customer = _queue_number - turns_before_customer;
+                        temp_time = temp_time * turns_before_customer;
 
-                var minutes = Math.Floor((time / 60));
-                var seconds = time - minutes * 60;
-                label26.Text = minutes + ":" + seconds;
+                        
+                        label26.Text = "Your turn at "+_format_estimated_time(temp_time);
+                        time += temp_time;
+                    }
+                    else
+                    {
+                        // Estimated time = N/A
+                        label26.Text = "N/A";
+                    }
 
+                }
             }
-            else
-            {
-                // Estimated time = N/A
-                label26.Text = "N/A";
-            }
-
             num2ID.Text = _student_no;
             num2Queue.Text = _cqn;
             num2Counter.Text = _so_name;
 
+        }
+        private string _format_estimated_time(double time)
+        {
+            string a = "";
+            var minutes = Math.Floor((time / 60));
+            var seconds = time - minutes * 60;
+            if (minutes > 0)
+            {
+                if (minutes == 1)
+                {
+                    a = minutes + " minute and ";
+                }
+                else
+                {
+                    a = minutes + " minutes and ";
+                }
+            }
+            if (seconds >= 2)
+                a += seconds + " seconds";
+            else
+                a += seconds + " second";
+
+            return a;
         }
         private int return_transaction_type_offices_count(SqlConnection con, int q_tt) {
             String query6 = "select Pattern_Max from Transaction_Type where id = @q_tt";
@@ -354,6 +382,18 @@ namespace Queuing_Application
             rdr3 = cmd6.ExecuteReader();
             while (rdr3.Read()) { c = (int)rdr3["Pattern_Max"]; }
             return c;
+        }
+        private string getEstimatedTime(int servicing_office, SqlConnection con)
+        {
+            string _time = "";
+
+            string _query = "select TOP 1 Avg_Serving_Time from Queue_Info where Servicing_Office = @param1";
+            SqlCommand _cmd = new SqlCommand(_query, con);
+            _cmd.Parameters.AddWithValue("@param1", servicing_office);
+            int _seconds = (int)_cmd.ExecuteScalar();
+
+            return _time;
+
         }
         private void new_transaction_queue(SqlConnection con, int q_tt) {
             String query5 = "insert into Queue_Transaction (Main_Queue_ID,Pattern_No,Servicing_Office) values (@q_mid,@q_pn,@sn)";
@@ -512,7 +552,7 @@ namespace Queuing_Application
 
             SqlConnection con = new SqlConnection(connection_string);
             con.Open();
-            String query0 = "TRUNCATE TABLE Main_Queue; TRUNCATE TABLE Queue_Info; TRUNCATE TABLE Serving_Time";
+            String query0 = "TRUNCATE TABLE Main_Queue; TRUNCATE TABLE Queue_Info; TRUNCATE TABLE Serving_Time; TRUNCATE TABLE Servicing_Terminal;";
             SqlCommand cmd0 = new SqlCommand(query0, con);
             cmd0.ExecuteNonQuery();
             MessageBox.Show("Dropped people on queue, information about queues and queues transactions, as well as serving time table.");
@@ -824,6 +864,11 @@ namespace Queuing_Application
             }
         }
 
+        private void label26_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void guestSubmit_Click(object sender, EventArgs e)
         {
             if (checkFields() == true)
@@ -870,7 +915,7 @@ namespace Queuing_Application
                         Console.Write("--INSERTING TO Main_Queue--");
                         newID = (int)cmd2.ExecuteScalar();
 
-                        setQueueTicket(con,_f_so, "Guest", gqsn,c);
+                        setQueueTicket(con,_tt_id,_f_so, "Guest", gqsn,c);
                         // Inserting to firebase - Main_Queue
                         // Function receives: Queue_Number, First_Servicing_Office,Student_No,Transaction_Type
                     
@@ -879,6 +924,7 @@ namespace Queuing_Application
                         shownID = c;
                         //new_transaction_queue(con, _tt_id);
                         Form2 f2 = new Form2();
+                        time = 0;
                         f2.Show();
                         con.Close();
 

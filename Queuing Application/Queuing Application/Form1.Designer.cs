@@ -86,8 +86,6 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.numberPanel = new System.Windows.Forms.Panel();
             this.numberPanel2 = new System.Windows.Forms.Panel();
-            this.label26 = new System.Windows.Forms.Label();
-            this.num2RES = new System.Windows.Forms.Label();
             this.num2Counter = new System.Windows.Forms.Label();
             this.num2Queue = new System.Windows.Forms.Label();
             this.num2ID = new System.Windows.Forms.Label();
@@ -99,6 +97,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button5 = new System.Windows.Forms.Button();
             this.transaction_TypeTableAdapter = new Queuing_Application.usep_queueDataSetTableAdapters.Transaction_TypeTableAdapter();
+            this.label26 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -826,7 +825,6 @@
             // numberPanel2
             // 
             this.numberPanel2.Controls.Add(this.label26);
-            this.numberPanel2.Controls.Add(this.num2RES);
             this.numberPanel2.Controls.Add(this.num2Counter);
             this.numberPanel2.Controls.Add(this.num2Queue);
             this.numberPanel2.Controls.Add(this.num2ID);
@@ -837,64 +835,40 @@
             this.numberPanel2.Size = new System.Drawing.Size(359, 420);
             this.numberPanel2.TabIndex = 13;
             // 
-            // label26
-            // 
-            this.label26.BackColor = System.Drawing.Color.NavajoWhite;
-            this.label26.Font = new System.Drawing.Font("Century Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(289, 83);
-            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(47, 28);
-            this.label26.TabIndex = 12;
-            this.label26.Text = "N/A";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // num2RES
-            // 
-            this.num2RES.BackColor = System.Drawing.Color.NavajoWhite;
-            this.num2RES.Font = new System.Drawing.Font("Century Gothic", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num2RES.Location = new System.Drawing.Point(-3, 83);
-            this.num2RES.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.num2RES.Name = "num2RES";
-            this.num2RES.Size = new System.Drawing.Size(316, 28);
-            this.num2RES.TabIndex = 9;
-            this.num2RES.Text = "REMAINING ESTIMATED SERVE TIME :";
-            this.num2RES.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // num2Counter
             // 
             this.num2Counter.BackColor = System.Drawing.Color.NavajoWhite;
             this.num2Counter.Font = new System.Drawing.Font("Century Gothic", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num2Counter.Location = new System.Drawing.Point(4, 331);
+            this.num2Counter.Location = new System.Drawing.Point(0, 281);
             this.num2Counter.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.num2Counter.Name = "num2Counter";
             this.num2Counter.Size = new System.Drawing.Size(349, 38);
             this.num2Counter.TabIndex = 2;
-            this.num2Counter.Text = "-----";
+            this.num2Counter.Text = "-";
             this.num2Counter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // num2Queue
             // 
             this.num2Queue.BackColor = System.Drawing.Color.NavajoWhite;
-            this.num2Queue.Font = new System.Drawing.Font("Century Gothic", 80F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num2Queue.Location = new System.Drawing.Point(0, 185);
+            this.num2Queue.Font = new System.Drawing.Font("Century Gothic", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num2Queue.Location = new System.Drawing.Point(-1, 119);
             this.num2Queue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.num2Queue.Name = "num2Queue";
             this.num2Queue.Size = new System.Drawing.Size(359, 133);
             this.num2Queue.TabIndex = 1;
             this.num2Queue.Text = "-";
-            this.num2Queue.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.num2Queue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // num2ID
             // 
             this.num2ID.BackColor = System.Drawing.Color.NavajoWhite;
             this.num2ID.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num2ID.Location = new System.Drawing.Point(0, 119);
+            this.num2ID.Location = new System.Drawing.Point(-1, 74);
             this.num2ID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.num2ID.Name = "num2ID";
             this.num2ID.Size = new System.Drawing.Size(359, 57);
             this.num2ID.TabIndex = 3;
-            this.num2ID.Text = "ID # 0000-00000";
+            this.num2ID.Text = "-";
             this.num2ID.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // num2PBox
@@ -975,6 +949,18 @@
             // transaction_TypeTableAdapter
             // 
             this.transaction_TypeTableAdapter.ClearBeforeFill = true;
+            // 
+            // label26
+            // 
+            this.label26.BackColor = System.Drawing.Color.NavajoWhite;
+            this.label26.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(6, 320);
+            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(332, 69);
+            this.label26.TabIndex = 13;
+            this.label26.Text = "N/A";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -1067,8 +1053,6 @@
         private System.Windows.Forms.Label q6;
         private System.Windows.Forms.Label q7;
         private System.Windows.Forms.Panel numberPanel2;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label num2RES;
         private System.Windows.Forms.Label num2Counter;
         private System.Windows.Forms.Label num2Queue;
         private System.Windows.Forms.Label num2ID;
@@ -1091,6 +1075,7 @@
         private System.Windows.Forms.BindingSource transactionTypeBindingSource;
         private usep_queueDataSetTableAdapters.Transaction_TypeTableAdapter transaction_TypeTableAdapter;
         public System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label26;
     }
 }
 

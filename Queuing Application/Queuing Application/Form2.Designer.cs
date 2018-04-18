@@ -55,7 +55,7 @@
             this.panel1.Controls.Add(this.label7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(761, 64);
             this.panel1.TabIndex = 0;
@@ -79,7 +79,7 @@
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(269, 4);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(247, 41);
             this.button1.TabIndex = 8;
@@ -93,7 +93,7 @@
             this.panel2.Controls.Add(this.button1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 398);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(761, 48);
             this.panel2.TabIndex = 1;
@@ -115,9 +115,9 @@
             this.label2.Location = new System.Drawing.Point(73, 111);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(295, 28);
+            this.label2.Size = new System.Drawing.Size(314, 28);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Your Queue Number is";
+            this.label2.Text = "Your Queue Number is:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
@@ -128,7 +128,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(295, 28);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Estimated serve time";
+            this.label3.Text = "Transaction done in";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
@@ -150,7 +150,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(333, 28);
             this.label5.TabIndex = 6;
-            this.label5.Text = "2 minutes  13 seconds";
+            this.label5.Text = "Less than 30 secs";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lineBreak
@@ -264,7 +264,7 @@
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label13);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form2";
