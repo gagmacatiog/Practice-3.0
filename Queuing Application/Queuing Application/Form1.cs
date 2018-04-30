@@ -435,10 +435,11 @@ namespace Queuing_Application
         }
         private int return_on_queue(SqlConnection con) {
             int a = 0;
-            String query4 = "select count(*) as a from Main_Queue where Servicing_Office = @sn";
+            String query4 = "select count(*) as a from Main_Queue where Servicing_Office = @sn and Queue_Status = @qs";
             SqlCommand cmd3 = new SqlCommand(query4, con);
             SqlDataReader rdr2;
             cmd3.Parameters.AddWithValue("@sn", Servicing_Office);
+            cmd3.Parameters.AddWithValue("@qs", "Waiting");
             rdr2 = cmd3.ExecuteReader();
             while (rdr2.Read()) { a = (int)rdr2["a"]; }
             //execute return_total_queue
@@ -653,7 +654,7 @@ namespace Queuing_Application
             int x = 0;
             
             label4.Text = DateTime.Now.ToString("h:m:s tt");
-            label27.Text = tickTime.ToString();
+            //label27.Text = tickTime.ToString();
             tickTime++;
             if (tickTime == 50)
             {
@@ -810,8 +811,8 @@ namespace Queuing_Application
                         // NOTE : THIS IS BARELY UPDATED.
                         // Recent update : March 27, 2018
                         // UPDATE immediately after receiving student database from sir
-                        String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time,Pattern_Current,Pattern_Max,Customer_Queue_Number,Queue_Status) OUTPUT Inserted.id";
-                        query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,1,GETDATE(),@q_pc,@q_pm,@q_cqn,@q_qs)";
+                        String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time,Pattern_Current,Pattern_Max,Customer_Queue_Number,Queue_Status,Customer_From) OUTPUT Inserted.id";
+                        query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,1,GETDATE(),@q_pc,@q_pm,@q_cqn,@q_qs,@q_cf)";
 
                             int _tt_id = (int)comboBox1.SelectedValue;
                             int _f_so = getFirstServicingOffice(_tt_id);
@@ -827,6 +828,7 @@ namespace Queuing_Application
                             cmd2.Parameters.AddWithValue("@q_pm", retrievePatternMax(_tt_id));
                             cmd2.Parameters.AddWithValue("@q_cqn", gqsn);
                             cmd2.Parameters.AddWithValue("@q_ps", "Waiting");
+                            cmd2.Parameters.AddWithValue("@q_cf", 0);
                             Console.Write("--INSERTING TO Main_Queue--");
                             newID = (int)cmd2.ExecuteScalar();
                         
@@ -835,7 +837,7 @@ namespace Queuing_Application
                             shownID = c;
                             //new_transaction_queue(con, _tt_id);
                             Form2 f2 = new Form2();
-                            f2.Show();
+                            f2.ShowDialog();
                             con.Close();
                             textBox1.Clear();
 
@@ -884,8 +886,8 @@ namespace Queuing_Application
                         cmd.CommandType = CommandType.Text;
                         cmd2.CommandType = CommandType.Text;
                         textBox1.Text=gtextBox2.Text;
-                        String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time,Pattern_Current,Pattern_Max,Customer_Queue_Number,Queue_Status) OUTPUT Inserted.id";
-                        query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,1,GETDATE(),@q_pc,@q_pm,@q_cqn,@q_qs)";
+                        String query2 = "insert into Main_Queue (Queue_Number,Full_Name,Servicing_Office,Student_No,Transaction_Type,Type,Time,Pattern_Current,Pattern_Max,Customer_Queue_Number,Queue_Status,Customer_From) OUTPUT Inserted.id";
+                        query2 += " values (@q_qn,@q_fn,@q_so,@q_sn,@q_tt,1,GETDATE(),@q_pc,@q_pm,@q_cqn,@q_qs,@q_cf)";
 
                         int _tt_id = (int)gcomboBox2.SelectedValue;
                         int _f_so = getFirstServicingOffice(_tt_id);
@@ -912,6 +914,7 @@ namespace Queuing_Application
                         cmd2.Parameters.AddWithValue("@q_pm", retrievePatternMax(_tt_id));
                         cmd2.Parameters.AddWithValue("@q_cqn", gqsn);
                         cmd2.Parameters.AddWithValue("@q_qs", "Waiting");
+                        cmd2.Parameters.AddWithValue("@q_cf", 0);
                         Console.Write("--INSERTING TO Main_Queue--");
                         newID = (int)cmd2.ExecuteScalar();
 
@@ -925,7 +928,7 @@ namespace Queuing_Application
                         //new_transaction_queue(con, _tt_id);
                         Form2 f2 = new Form2();
                         time = 0;
-                        f2.Show();
+                        f2.ShowDialog();
                         con.Close();
 
                         //Clear Value

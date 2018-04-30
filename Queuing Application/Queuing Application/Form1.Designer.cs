@@ -70,22 +70,16 @@
             this.s7 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.numberPanel = new System.Windows.Forms.Panel();
             this.numberPanel2 = new System.Windows.Forms.Panel();
+            this.label26 = new System.Windows.Forms.Label();
             this.num2Counter = new System.Windows.Forms.Label();
             this.num2Queue = new System.Windows.Forms.Label();
             this.num2ID = new System.Windows.Forms.Label();
@@ -97,7 +91,10 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button5 = new System.Windows.Forms.Button();
             this.transaction_TypeTableAdapter = new Queuing_Application.usep_queueDataSetTableAdapters.Transaction_TypeTableAdapter();
-            this.label26 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -110,7 +107,6 @@
             this.panel7.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.numberPanel.SuspendLayout();
@@ -608,7 +604,6 @@
             this.panel8.Controls.Add(this.panel9);
             this.panel8.Controls.Add(this.button4);
             this.panel8.Controls.Add(this.button3);
-            this.panel8.Controls.Add(this.panel2);
             this.panel8.Controls.Add(this.panel5);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel8.Location = new System.Drawing.Point(155, 98);
@@ -622,34 +617,12 @@
             this.panel9.BackColor = System.Drawing.Color.Gainsboro;
             this.panel9.Controls.Add(this.label31);
             this.panel9.Controls.Add(this.label32);
-            this.panel9.Location = new System.Drawing.Point(28, 283);
+            this.panel9.Location = new System.Drawing.Point(28, 215);
             this.panel9.Margin = new System.Windows.Forms.Padding(4);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(229, 113);
+            this.panel9.Size = new System.Drawing.Size(229, 181);
             this.panel9.TabIndex = 2;
             this.panel9.Paint += new System.Windows.Forms.PaintEventHandler(this.panel9_Paint);
-            // 
-            // label31
-            // 
-            this.label31.Font = new System.Drawing.Font("Century Gothic", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(0, -1);
-            this.label31.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(229, 68);
-            this.label31.TabIndex = 2;
-            this.label31.Text = "36";
-            this.label31.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label32
-            // 
-            this.label32.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.Location = new System.Drawing.Point(0, 66);
-            this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(229, 48);
-            this.label32.TabIndex = 3;
-            this.label32.Text = "Mobile Reservation";
-            this.label32.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // button4
             // 
@@ -689,73 +662,17 @@
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel2.Controls.Add(this.label27);
-            this.panel2.Controls.Add(this.label28);
-            this.panel2.Location = new System.Drawing.Point(28, 30);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(229, 130);
-            this.panel2.TabIndex = 0;
-            // 
-            // label27
-            // 
-            this.label27.Font = new System.Drawing.Font("Century Gothic", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(0, 15);
-            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(229, 68);
-            this.label27.TabIndex = 0;
-            this.label27.Text = "200";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label27.Click += new System.EventHandler(this.label27_Click);
-            // 
-            // label28
-            // 
-            this.label28.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(0, 82);
-            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(229, 48);
-            this.label28.TabIndex = 1;
-            this.label28.Text = "Reserved Queue";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.Gainsboro;
             this.panel5.Controls.Add(this.label29);
             this.panel5.Controls.Add(this.label30);
-            this.panel5.Location = new System.Drawing.Point(28, 165);
+            this.panel5.Location = new System.Drawing.Point(28, 34);
             this.panel5.Margin = new System.Windows.Forms.Padding(4);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(229, 113);
+            this.panel5.Size = new System.Drawing.Size(229, 176);
             this.panel5.TabIndex = 1;
             this.panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.panel5_Paint);
-            // 
-            // label29
-            // 
-            this.label29.Font = new System.Drawing.Font("Century Gothic", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(0, -1);
-            this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(229, 68);
-            this.label29.TabIndex = 2;
-            this.label29.Text = "164";
-            this.label29.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label30
-            // 
-            this.label30.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(0, 66);
-            this.label30.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(229, 48);
-            this.label30.TabIndex = 3;
-            this.label30.Text = "Kiosk Reservation";
-            this.label30.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label1
             // 
@@ -834,6 +751,18 @@
             this.numberPanel2.Name = "numberPanel2";
             this.numberPanel2.Size = new System.Drawing.Size(359, 420);
             this.numberPanel2.TabIndex = 13;
+            // 
+            // label26
+            // 
+            this.label26.BackColor = System.Drawing.Color.NavajoWhite;
+            this.label26.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(6, 320);
+            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(332, 69);
+            this.label26.TabIndex = 13;
+            this.label26.Text = "N/A";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // num2Counter
             // 
@@ -950,17 +879,49 @@
             // 
             this.transaction_TypeTableAdapter.ClearBeforeFill = true;
             // 
-            // label26
+            // label32
             // 
-            this.label26.BackColor = System.Drawing.Color.NavajoWhite;
-            this.label26.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(6, 320);
-            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(332, 69);
-            this.label26.TabIndex = 13;
-            this.label26.Text = "N/A";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label32.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.Location = new System.Drawing.Point(4, 118);
+            this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(221, 48);
+            this.label32.TabIndex = 3;
+            this.label32.Text = "Mobile Reservation";
+            this.label32.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label31
+            // 
+            this.label31.Font = new System.Drawing.Font("Century Gothic", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(4, 20);
+            this.label31.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(221, 88);
+            this.label31.TabIndex = 2;
+            this.label31.Text = "---";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label30
+            // 
+            this.label30.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(4, 120);
+            this.label30.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(221, 48);
+            this.label30.TabIndex = 3;
+            this.label30.Text = "Kiosk Reservation";
+            this.label30.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label29
+            // 
+            this.label29.Font = new System.Drawing.Font("Century Gothic", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(0, 24);
+            this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(225, 68);
+            this.label29.TabIndex = 2;
+            this.label29.Text = "---";
+            this.label29.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // Form1
             // 
@@ -996,7 +957,6 @@
             this.panel7.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.numberPanel.ResumeLayout(false);
@@ -1058,14 +1018,7 @@
         private System.Windows.Forms.Label num2ID;
         private System.Windows.Forms.PictureBox num2PBox;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label30;
         public System.Windows.Forms.Button button2;
         public System.Windows.Forms.Button button1;
         public System.Windows.Forms.Button button3;
@@ -1076,6 +1029,10 @@
         private usep_queueDataSetTableAdapters.Transaction_TypeTableAdapter transaction_TypeTableAdapter;
         public System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label30;
     }
 }
 

@@ -13,5 +13,6 @@ namespace Queuing_Application
         public int Pattern_Current { get; set; }
         public int ID { get; set; }
         public string Customer_Queue_Number { get; set; }
+        public string Type { get; set; }
     }
 }
